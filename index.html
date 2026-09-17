@@ -290,8 +290,8 @@
   position:relative;
   min-height:112svh;
   overflow:hidden;
-  display:grid;
-  place-items:center;
+  display:flex;
+  align-items:center;
   background:#07080a;
   isolation:isolate;
 }
@@ -318,8 +318,9 @@
 .wish-copy{
   position:relative;
   z-index:2;
-  width:min(720px,82vw);
-  text-align:center;
+  width:min(620px,48vw);
+  margin-left:clamp(24px,7vw,110px);
+  text-align:left;
 }
 .wish-kicker{
   margin:0 0 6px;
@@ -339,7 +340,7 @@
 .wish-line{
   width:1px;
   height:42px;
-  margin:28px auto 22px;
+  margin:28px 0 22px;
   background:linear-gradient(to bottom,rgba(194,74,93,.9),rgba(194,74,93,.06));
 }
 .wish-body{
@@ -377,11 +378,149 @@
       radial-gradient(circle at 50% 44%,rgba(7,8,10,.06),rgba(7,8,10,.40) 58%,#07080a 100%),
       linear-gradient(to bottom,#07080a 0%,transparent 18%,transparent 68%,#07080a 100%);
   }
-  .wish-copy{width:88vw}
+  .wish-copy{width:calc(100% - 40px);margin-left:20px;text-align:left}
   .wish-copy h2{font-size:clamp(46px,15vw,72px)}
-  .wish-line{height:34px;margin:22px auto 18px}
+  .wish-line{height:34px;margin:22px 0 18px}
   .wish-body{font-size:11px;line-height:1.85}
   .wish-word{font-size:35vw;bottom:1vh}
+}
+
+
+/* 03 — ROUND */
+.round-sequence{
+  position:relative;
+  min-height:118svh;
+  overflow:hidden;
+  background:#07080a;
+}
+.round-stage{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:clamp(86px,11vh,130px) clamp(24px,7vw,110px);
+}
+.round-copy{
+  position:relative;
+  z-index:4;
+  width:min(590px,46vw);
+}
+.round-kicker{
+  margin:0 0 8px;
+  color:rgba(199,201,205,.58);
+  font-size:clamp(12px,1.1vw,15px);
+  letter-spacing:.11em;
+}
+.round-copy h2{
+  margin:0;
+  color:#e8e8ea;
+  font-size:clamp(40px,5.3vw,76px);
+  line-height:1.14;
+  font-weight:350;
+  letter-spacing:-.045em;
+}
+.round-line{
+  width:42px;
+  height:1px;
+  margin:27px 0 22px;
+  background:linear-gradient(90deg,rgba(194,74,93,.92),rgba(194,74,93,.10));
+}
+.round-body{
+  margin:0;
+  color:rgba(188,190,195,.58);
+  font-size:clamp(11px,1.02vw,14px);
+  line-height:1.9;
+  letter-spacing:.04em;
+}
+.round-visuals{
+  position:absolute;
+  inset:7vh 3vw 7vh 39%;
+  z-index:1;
+}
+.round-card{
+  position:absolute;
+  margin:0;
+  overflow:hidden;
+  background:#0b0c0f;
+  box-shadow:0 28px 70px rgba(0,0,0,.52);
+}
+.round-card img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(.70) contrast(1.08) saturate(.80);
+}
+.round-card-a{
+  width:min(43vw,650px);
+  height:68%;
+  right:0;
+  top:5%;
+}
+.round-card-b{
+  width:min(31vw,470px);
+  height:48%;
+  left:0;
+  bottom:2%;
+  border:1px solid rgba(255,255,255,.055);
+}
+.round-visuals::after{
+  content:"";
+  position:absolute;
+  inset:-2%;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,#07080a 0%,rgba(7,8,10,.82) 11%,transparent 42%),
+    linear-gradient(0deg,#07080a 0%,transparent 18%,transparent 78%,#07080a 100%);
+}
+.round-index{
+  position:absolute;
+  right:clamp(24px,4vw,60px);
+  bottom:clamp(26px,4vh,48px);
+  z-index:5;
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  color:rgba(177,179,184,.34);
+  font-size:8px;
+  letter-spacing:.30em;
+}
+.round-index strong{
+  color:rgba(222,223,226,.68);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:.18em;
+}
+
+@media(max-width:720px){
+  .round-sequence{min-height:108svh}
+  .round-stage{
+    min-height:100svh;
+    align-items:flex-end;
+    padding:70px 20px 14vh;
+  }
+  .round-copy{width:100%}
+  .round-copy h2{font-size:clamp(38px,11.5vw,58px)}
+  .round-visuals{inset:0}
+  .round-card-a{
+    width:84vw;
+    height:58vh;
+    right:-14vw;
+    top:7vh;
+  }
+  .round-card-b{
+    width:58vw;
+    height:34vh;
+    left:-8vw;
+    bottom:25vh;
+  }
+  .round-visuals::after{
+    inset:0;
+    background:
+      linear-gradient(0deg,#07080a 0%,rgba(7,8,10,.92) 24%,rgba(7,8,10,.25) 58%,rgba(7,8,10,.54) 100%);
+  }
+  .round-index{right:20px;bottom:27px}
 }
 
 </style>
@@ -459,18 +598,42 @@
 
   <div class="wish-word" aria-hidden="true">WISH</div>
 </section>
+<section class="round-sequence section" id="round">
+  <div class="round-stage">
+    <div class="round-copy reveal">
+      <span class="section-no">03 / ROUND</span>
+      <p class="round-kicker">ROUND 0 이후,</p>
+      <h2>살아남아야<br>다음으로 간다.</h2>
+      <div class="round-line" aria-hidden="true"></div>
+      <p class="round-body">
+        ROUND 1부터 시작되는 데스매치.<br>
+        미션에 성공했다고 살아남는 것은 아니다.
+      </p>
+    </div>
+
+    <div class="round-visuals" aria-hidden="true">
+      <figure class="round-card round-card-a reveal">
+        <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/round_01.png" alt="">
+      </figure>
+      <figure class="round-card round-card-b reveal">
+        <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/round_02.png" alt="">
+      </figure>
+    </div>
+
+    <div class="round-index reveal" aria-hidden="true">
+      <span>ROUND</span>
+      <strong>01—FINAL</strong>
+    </div>
+  </div>
+</section>
 
 
+
     <div class="divider"></div>
-    <section class="section center"><div class="section-inner"><div class="reveal number glow">49</div><h2 class="reveal headline" style="margin-top:36px">버튼을 누른 사람은 49명.</h2><p class="reveal body">그게 실수였든,<br>소원이 있었든.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="WISHBORN 참가자들"></div></div></section>
     <div class="divider"></div>
-    <section class="section"><div class="section-inner"><p class="reveal eyebrow">WISH</p><h2 class="reveal headline">가장 깊은 소원은<br><span class="accent glow">힘이 된다.</span></h2><p class="reveal body">참가자의 가장 깊은 소원에서 고유한 초능력, WISH가 태어난다.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/wish.png" alt="미완성 소원권과 WISH"></div></div></section>
     <div class="divider"></div>
-    <section class="section center"><div class="section-inner"><p class="reveal eyebrow">ROUND</p><h2 class="reveal headline">7개의 라운드.<br><span class="accent">마지막 생존자는 한 명.</span></h2><p class="reveal body">ROUND 0을 지나 공식 데스매치가 시작된다. 미션을 성공했다고 반드시 살아남는 것은 아니다.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/deathmatch.png" alt="WISHBORN 데스매치"></div></div></section>
     <div class="divider"></div>
-    <section class="participants"><p class="reveal eyebrow">WISHBORN PARTICIPANTS</p><h2 class="reveal headline">현재 공개된 9명.</h2><p class="reveal body">다음 단계에서 카드를 클릭하면 참가자 상세 정보가 팝업되는 인터랙션을 연결합니다.</p><div class="cards"> <div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div></div></section>
     <div class="divider"></div>
-    <section class="end"><div><p class="reveal">마지막에 남는 단 한 사람.</p><p class="reveal accent" style="margin-top:20px">당신은 무엇을 소원할 것인가?</p></div></section>
   </div>
 </main>
 <script>
