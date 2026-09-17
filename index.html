@@ -1293,6 +1293,115 @@ body.modal-open{overflow:hidden}
   .platform-character em{font-size:5px}
 }
 
+
+/* 07 PLAY — accordion */
+.play-accordion{
+  width:min(880px,100%);
+  margin-top:clamp(55px,8vh,90px);
+  border-top:1px solid rgba(255,255,255,.10);
+}
+.play-platform{border-bottom:1px solid rgba(255,255,255,.09)}
+.play-platform-head{
+  appearance:none;
+  width:100%;
+  min-height:88px;
+  display:grid;
+  grid-template-columns:64px 1fr auto 34px;
+  align-items:center;
+  gap:14px;
+  padding:0 4px;
+  border:0;
+  background:transparent;
+  color:#dfe0e2;
+  text-align:left;
+  cursor:pointer;
+  transition:padding .28s ease,background .28s ease;
+}
+.play-platform-head:hover,
+.play-platform.is-open .play-platform-head{
+  padding-left:12px;
+  background:linear-gradient(90deg,rgba(117,27,42,.11),transparent 72%);
+}
+.play-platform-head .play-index{
+  color:rgba(194,74,93,.64);
+  font-size:8px;
+  letter-spacing:.14em;
+}
+.play-platform-head strong{
+  font-size:clamp(19px,2vw,27px);
+  font-weight:400;
+  letter-spacing:.12em;
+}
+.play-platform-head small{
+  color:rgba(183,185,190,.30);
+  font-size:7px;
+  letter-spacing:.16em;
+}
+.play-platform-head i{
+  justify-self:end;
+  color:rgba(216,217,220,.42);
+  font-size:17px;
+  font-style:normal;
+  font-weight:200;
+  transition:transform .32s ease,color .32s ease;
+}
+.play-platform.is-open .play-platform-head i{
+  transform:rotate(45deg);
+  color:rgba(194,74,93,.78);
+}
+.play-platform-list{
+  display:grid;
+  grid-template-rows:0fr;
+  opacity:0;
+  transition:grid-template-rows .42s cubic-bezier(.2,.7,.2,1),opacity .28s ease;
+}
+.play-platform.is-open .play-platform-list{
+  grid-template-rows:1fr;
+  opacity:1;
+}
+.play-platform-list-inner{
+  min-height:0;
+  overflow:hidden;
+  padding-left:64px;
+}
+.play-platform.is-open .play-platform-list-inner{padding-bottom:20px}
+.play-character{
+  min-height:43px;
+  display:grid;
+  grid-template-columns:38px 1fr 28px;
+  align-items:center;
+  width:min(620px,92%);
+  border-top:1px solid rgba(255,255,255,.045);
+}
+.play-character span{
+  color:rgba(194,74,93,.42);
+  font-size:6px;
+  letter-spacing:.12em;
+}
+.play-character strong{
+  color:rgba(211,212,215,.62);
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:.04em;
+}
+.play-character em{
+  justify-self:end;
+  color:rgba(200,202,206,.20);
+  font-size:10px;
+  font-style:normal;
+}
+@media(max-width:600px){
+  .play-platform-head{
+    min-height:72px;
+    grid-template-columns:38px 1fr auto 24px;
+    gap:8px;
+  }
+  .play-platform-head strong{font-size:17px}
+  .play-platform-head small{font-size:5px}
+  .play-platform-list-inner{padding-left:38px}
+  .play-character{width:96%;min-height:40px}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -1581,81 +1690,35 @@ body.modal-open{overflow:hidden}
   </article>
 </div>
 
+
 <section class="play-sequence section" id="play">
   <div class="play-inner">
     <div class="play-copy reveal">
       <span class="section-no">07 / PLAY</span>
       <p class="play-kicker">CHOOSE YOUR PLATFORM.</p>
       <h2>참가자를<br>만나보세요.</h2>
-      <p class="play-body">플랫폼마다 공개된 참가자가 다릅니다.</p>
     </div>
 
-    <div class="platform-tabs reveal" role="tablist" aria-label="플랫폼 선택">
-      <button class="platform-tab is-active" type="button" data-target="tingle">TINGLE <small>09</small></button>
-      <button class="platform-tab" type="button" data-target="caveduck">CAVEDUCK <small>05</small></button>
-      <button class="platform-tab" type="button" data-target="inkchat">INKCHAT <small>04</small></button>
-    </div>
+    <div class="play-accordion reveal">
+      <div class="play-platform">
+        <button class="play-platform-head" type="button" data-play="tingle" aria-expanded="false">
+          <span class="play-index">01</span><strong>TINGLE</strong><small>09 CHARACTERS</small><i>＋</i>
+        </button>
+        <div class="play-platform-list" data-list="tingle"><div class="play-platform-list-inner"><div class="play-character"><span>01</span><strong>문유진</strong><em>↗</em></div><div class="play-character"><span>02</span><strong>백이산</strong><em>↗</em></div><div class="play-character"><span>03</span><strong>한유온</strong><em>↗</em></div><div class="play-character"><span>04</span><strong>이도현</strong><em>↗</em></div><div class="play-character"><span>05</span><strong>윤이겸</strong><em>↗</em></div><div class="play-character"><span>06</span><strong>반고요</strong><em>↗</em></div><div class="play-character"><span>07</span><strong>주재현</strong><em>↗</em></div><div class="play-character"><span>08</span><strong>신재희</strong><em>↗</em></div><div class="play-character"><span>09</span><strong>백연하</strong><em>↗</em></div></div></div>
+      </div>
 
-    <div class="platform-panels reveal">
-      <div class="platform-panel is-active" data-panel="tingle">
-        <div class="platform-character">
-          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>02</span><strong>백이산</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>03</span><strong>한유온</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>04</span><strong>이도현</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>05</span><strong>윤이겸</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>06</span><strong>반고요</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>07</span><strong>주재현</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>08</span><strong>신재희</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>09</span><strong>백연하</strong><em>LINK PENDING</em>
-        </div>
+      <div class="play-platform">
+        <button class="play-platform-head" type="button" data-play="caveduck" aria-expanded="false">
+          <span class="play-index">02</span><strong>CAVEDUCK</strong><small>05 CHARACTERS</small><i>＋</i>
+        </button>
+        <div class="play-platform-list" data-list="caveduck"><div class="play-platform-list-inner"><div class="play-character"><span>01</span><strong>문유진</strong><em>↗</em></div><div class="play-character"><span>02</span><strong>백이산</strong><em>↗</em></div><div class="play-character"><span>03</span><strong>한유온</strong><em>↗</em></div><div class="play-character"><span>04</span><strong>이도현</strong><em>↗</em></div><div class="play-character"><span>05</span><strong>신재희</strong><em>↗</em></div></div></div>
       </div>
-      <div class="platform-panel" data-panel="caveduck">
-        <div class="platform-character">
-          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>02</span><strong>백이산</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>03</span><strong>한유온</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>04</span><strong>이도현</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>05</span><strong>신재희</strong><em>LINK PENDING</em>
-        </div>
-      </div>
-      <div class="platform-panel" data-panel="inkchat">
-        <div class="platform-character">
-          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>02</span><strong>한유온</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>03</span><strong>이도현</strong><em>LINK PENDING</em>
-        </div>
-        <div class="platform-character">
-          <span>04</span><strong>백연하</strong><em>LINK PENDING</em>
-        </div>
+
+      <div class="play-platform">
+        <button class="play-platform-head" type="button" data-play="inkchat" aria-expanded="false">
+          <span class="play-index">03</span><strong>INKCHAT</strong><small>04 CHARACTERS</small><i>＋</i>
+        </button>
+        <div class="play-platform-list" data-list="inkchat"><div class="play-platform-list-inner"><div class="play-character"><span>01</span><strong>문유진</strong><em>↗</em></div><div class="play-character"><span>02</span><strong>한유온</strong><em>↗</em></div><div class="play-character"><span>03</span><strong>이도현</strong><em>↗</em></div><div class="play-character"><span>04</span><strong>백연하</strong><em>↗</em></div></div></div>
       </div>
     </div>
 
@@ -1663,6 +1726,7 @@ body.modal-open{overflow:hidden}
   </div>
   <div class="play-glow" aria-hidden="true"></div>
 </section>
+
 
 
 
@@ -1926,14 +1990,24 @@ if(participantModal){
 }
 
 
-// PLAY platform tabs
-document.querySelectorAll('.platform-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.platform-tab').forEach(t=>t.classList.remove('is-active'));
-    document.querySelectorAll('.platform-panel').forEach(p=>p.classList.remove('is-active'));
-    tab.classList.add('is-active');
-    const panel=document.querySelector(`.platform-panel[data-panel="${tab.dataset.target}"]`);
-    if(panel) panel.classList.add('is-active');
+
+
+// PLAY platform accordion — only one platform stays open
+document.querySelectorAll('.play-platform-head').forEach(head=>{
+  head.addEventListener('click',()=>{
+    const current=head.closest('.play-platform');
+    const wasOpen=current.classList.contains('is-open');
+
+    document.querySelectorAll('.play-platform').forEach(platform=>{
+      platform.classList.remove('is-open');
+      const button=platform.querySelector('.play-platform-head');
+      if(button) button.setAttribute('aria-expanded','false');
+    });
+
+    if(!wasOpen){
+      current.classList.add('is-open');
+      head.setAttribute('aria-expanded','true');
+    }
   });
 });
 
