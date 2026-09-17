@@ -1635,15 +1635,28 @@ if(participantModal){
   };
   document.querySelectorAll('.mystery-card').forEach(card=>{
     card.addEventListener('click',()=>{
-      modalImage.src=card.dataset.image;
-      modalImage.alt=card.dataset.name;
-      modalName.textContent=card.dataset.name;
-      modalJob.textContent=card.dataset.job;
-      modalWish.textContent=card.dataset.wish;
-      modalDesc.textContent=card.dataset.desc;
-      participantModal.classList.add('is-open');
-      participantModal.setAttribute('aria-hidden','false');
-      document.body.classList.add('modal-open');
+      const nextSrc=card.dataset.image;
+      let opened=false;
+      const openModal=()=>{
+        if(opened) return;
+        opened=true;
+        modalImage.src=nextSrc;
+        modalImage.alt=card.dataset.name;
+        modalName.textContent=card.dataset.name;
+        modalJob.textContent=card.dataset.job;
+        modalWish.textContent=card.dataset.wish;
+        modalDesc.textContent=card.dataset.desc;
+        participantModal.classList.add('is-open');
+        participantModal.setAttribute('aria-hidden','false');
+        document.body.classList.add('modal-open');
+      };
+
+      // 이미지가 준비된 뒤 팝업을 열어 이전 참가자 이미지가 한 박자 보이는 현상 방지
+      const preload=new Image();
+      preload.onload=openModal;
+      preload.onerror=openModal;
+      preload.src=nextSrc;
+      if(preload.complete) openModal();
     });
   });
   participantModal.querySelector('.participant-modal-backdrop').addEventListener('click',closeParticipant);
