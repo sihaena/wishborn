@@ -19,15 +19,14 @@
 .ticket-source{display:block;width:100%;height:auto;pointer-events:none}
 .tear-progress{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:3}
 .tear-layer{position:absolute;inset:0;pointer-events:none;z-index:2}
-.tear-piece{position:absolute;inset:0;width:100%;height:100%;opacity:0;backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
+.tear-piece{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:translate3d(0,0,0);backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
 .rip-flash{display:none}
 .intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em}
 .ticket-button.opening{pointer-events:none;filter:none}
 .ticket-button.opening+.intro-hint{animation:hintOut .18s ease forwards}
 
 /* Detached pieces only start after the travelling tear is complete. */
-.ticket-button.detached .tear-left,
-.ticket-button.detached .tear-right{opacity:1}
+.ticket-button.detached .tear-left,.ticket-button.detached .tear-right{opacity:1}
 
 @keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0);opacity:1}45%{transform:translate3d(-.8vw,4vh,0) rotate(-2deg);opacity:.34}100%{transform:translate3d(-1.5vw,8vh,0) rotate(-4deg);opacity:0}}
   22%{transform:translate3d(-.7vw,2.8vh,0) rotate(-1.5deg);opacity:.72}
@@ -214,24 +213,33 @@ function animateProgressiveTear(done){
 function dropBothPieces(){
   enter.classList.add('detached');
 
-  const common={
+  tearLeft.getAnimations().forEach(a=>a.cancel());
+  tearRight.getAnimations().forEach(a=>a.cancel());
+
+  tearLeft.style.opacity='1';
+  tearRight.style.opacity='1';
+  tearLeft.style.transform='translate3d(0,0,0) rotate(0deg)';
+  tearRight.style.transform='translate3d(0,0,0) rotate(0deg)';
+
+  const timing={
     duration:500,
     easing:'cubic-bezier(.20,.72,.25,1)',
     fill:'forwards'
   };
 
-  // Explicit independent animations: no shared CSS transform/opacity conflict.
-  tearLeft.animate([
-    {transform:'translate3d(0,0,0) rotate(0deg)',opacity:1},
-    {transform:'translate3d(-0.7vw,3.2vh,0) rotate(-1.5deg)',opacity:.58,offset:.38},
-    {transform:'translate3d(-1.6vw,8vh,0) rotate(-4deg)',opacity:0}
-  ],common);
+  requestAnimationFrame(()=>{
+    tearLeft.animate([
+      {transform:'translate3d(0px,0px,0) rotate(0deg)',opacity:1},
+      {transform:'translate3d(-8px,28px,0) rotate(-1.5deg)',opacity:.58,offset:.38},
+      {transform:'translate3d(-16px,68px,0) rotate(-4deg)',opacity:0}
+    ],timing);
 
-  tearRight.animate([
-    {transform:'translate3d(0,0,0) rotate(0deg)',opacity:1},
-    {transform:'translate3d(0.7vw,3.2vh,0) rotate(1.5deg)',opacity:.58,offset:.38},
-    {transform:'translate3d(1.6vw,8vh,0) rotate(4deg)',opacity:0}
-  ],common);
+    tearRight.animate([
+      {transform:'translate3d(0px,0px,0) rotate(0deg)',opacity:1},
+      {transform:'translate3d(8px,28px,0) rotate(1.5deg)',opacity:.58,offset:.38},
+      {transform:'translate3d(16px,68px,0) rotate(4deg)',opacity:0}
+    ],timing);
+  });
 }
 
 enter.addEventListener('click',()=>{
