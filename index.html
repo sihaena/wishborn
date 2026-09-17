@@ -1703,6 +1703,74 @@ body.modal-open{overflow:hidden}
   }
 }
 
+
+/* MOBILE COMPOSITION v3 */
+@media(max-width:720px){
+  .hero-wishborn-logo{
+    display:block!important; position:relative!important;
+    left:50%!important; right:auto!important;
+    margin-left:0!important; margin-right:0!important;
+    width:min(88vw,520px)!important; max-width:none!important;
+    transform:translateX(-50%)!important;
+  }
+
+  /* 01: full viewport artwork, no right-side blank strip */
+  .invite-image{
+    inset:0 -3vw!important; width:106vw!important; max-width:none!important;
+  }
+  .invite-image img{
+    display:block!important; width:106vw!important; min-width:106vw!important;
+    max-width:none!important; height:100%!important;
+    object-fit:cover!important; object-position:center center!important;
+  }
+
+  /* 03: main artwork spans beyond both viewport edges */
+  .round-visuals{
+    inset:0 -3vw!important; width:106vw!important; max-width:none!important;
+    overflow:hidden!important;
+  }
+  .round-card-a{
+    width:106vw!important; max-width:none!important;
+    left:0!important; right:auto!important; top:0!important;
+    height:55vh!important; transform:none!important;
+  }
+  .round-card-a img{
+    display:block!important; width:100%!important; max-width:none!important;
+    height:100%!important; object-fit:cover!important;
+    object-position:center center!important;
+  }
+  .round-card-b{
+    width:58vw!important; height:28vh!important;
+    left:auto!important; right:4vw!important;
+    top:auto!important; bottom:27vh!important;
+    transform:none!important;
+  }
+
+  /* 05: overlap the two images into one visual cluster */
+  .between-gallery{
+    inset:0!important; width:100vw!important; height:61vh!important;
+    overflow:hidden!important;
+  }
+  .between-shot-a{
+    width:100vw!important; height:46vh!important;
+    left:0!important; right:auto!important; top:0!important; bottom:auto!important;
+    transform:none!important;
+  }
+  .between-shot-b{
+    width:58vw!important; height:27vh!important;
+    left:auto!important; right:4vw!important; top:30vh!important; bottom:auto!important;
+    transform:none!important; z-index:2!important;
+  }
+  .between-shot-a img,.between-shot-b img{
+    width:100%!important; height:100%!important;
+    object-fit:cover!important; object-position:center center!important;
+  }
+  .between-gallery::after{
+    background:
+      linear-gradient(0deg,#08090b 0%,rgba(8,9,11,.96) 18%,rgba(8,9,11,.34) 48%,rgba(8,9,11,.08) 80%,rgba(8,9,11,.14) 100%)!important;
+  }
+}
+
 </style>
 </head>
 <body class="lock">
