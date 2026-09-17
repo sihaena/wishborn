@@ -17,20 +17,20 @@
 .ticket-button{position:relative;width:min(74vw,720px);height:auto;margin:auto;border:0;padding:0;background:transparent;cursor:pointer;filter:drop-shadow(0 24px 45px rgba(0,0,0,.65));transition:transform .35s ease,filter .35s ease}
 .ticket-button:hover{transform:translateY(-5px) scale(1.01);filter:drop-shadow(0 28px 55px rgba(117,27,42,.30))}
 .ticket-source{display:block;width:100%;height:auto;pointer-events:none}
-.tear-layer{position:absolute;inset:0;pointer-events:none}
+.tear-layer{position:absolute;inset:0;pointer-events:none}.tear-progress{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:3}
 .tear-piece{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
 .rip-flash{position:absolute;z-index:4;top:4%;bottom:4%;left:50%;width:2px;opacity:0;transform:translate3d(-50%,0,0) scaleY(.08);transform-origin:center;background:rgba(255,238,240,.95);box-shadow:0 0 8px rgba(255,255,255,.9),0 0 24px rgba(194,74,93,.75);clip-path:polygon(20% 0,100% 8%,12% 18%,92% 29%,10% 40%,100% 51%,16% 61%,86% 72%,8% 83%,100% 92%,28% 100%)}
 .intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em}
 .ticket-button.opening{pointer-events:none;filter:none}
-.ticket-button.opening .ticket-source{visibility:hidden}
+.ticket-button.opening .ticket-source{visibility:visible}
 .ticket-button.opening .tear-piece{opacity:1}
-.ticket-button.opening .rip-flash{animation:ripFlash .18s ease-out both}
-.ticket-button.opening .tear-left{animation:tearLeft 1.18s cubic-bezier(.18,.68,.2,1) .08s both}
-.ticket-button.opening .tear-right{animation:tearRight 1.18s cubic-bezier(.18,.68,.2,1) .08s both}
+.ticket-button.opening .rip-flash{display:none}
+.ticket-button.opening .tear-left{animation:tearLeft .58s cubic-bezier(.2,.72,.24,1) .34s both}
+.ticket-button.opening .tear-right{animation:tearRight .58s cubic-bezier(.2,.72,.24,1) .34s both}
 .ticket-button.opening+.intro-hint{animation:hintOut .2s ease forwards}
 @keyframes ripFlash{0%{opacity:0;transform:translate3d(-50%,0,0) scaleY(.08)}42%{opacity:.95;transform:translate3d(-50%,0,0) scaleY(1)}100%{opacity:0;transform:translate3d(-50%,0,0) scaleY(1)}}
-@keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}100%{transform:translate3d(-58vw,24vh,0) rotate(-17deg);opacity:0}}
-@keyframes tearRight{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}100%{transform:translate3d(58vw,25vh,0) rotate(18deg);opacity:0}}
+@keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}35%{opacity:.82}100%{transform:translate3d(-14vw,34vh,0) rotate(-9deg);opacity:0}}100%{transform:translate3d(-58vw,24vh,0) rotate(-17deg);opacity:0}}
+@keyframes tearRight{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}35%{opacity:.82}100%{transform:translate3d(14vw,34vh,0) rotate(9deg);opacity:0}}100%{transform:translate3d(58vw,25vh,0) rotate(18deg);opacity:0}}
 @keyframes hintOut{to{opacity:0}}
 /* page */
 .site{position:relative;z-index:2;opacity:0;transition:opacity 1s ease}.site.visible{opacity:1}.wrap{width:min(100%,var(--max));margin:auto}.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 24px;background:radial-gradient(circle at 50% 30%,rgba(117,27,42,.17),transparent 25rem)}.hero h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(52px,14vw,108px);line-height:.9;letter-spacing:.075em}.tagline{margin-top:22px;color:#d7d4d5;font-size:clamp(14px,3vw,18px)}.meta{margin-top:26px;color:#7d7f85;font-size:10px;font-weight:700;letter-spacing:.25em}.scroll-mark{position:absolute;bottom:28px;font-size:9px;color:#57595e;letter-spacing:.25em}
@@ -51,6 +51,7 @@
     <div class="intro-kicker">SPECIAL INVITATION</div>
     <button class="ticket-button" id="enter" aria-label="티켓을 눌러 WISHBORN 입장">
       <img class="ticket-source" id="ticketSource" src="assets/ticket.png" alt="">
+      <canvas id="tearProgress" class="tear-progress" aria-hidden="true"></canvas>
       <span class="tear-layer" aria-hidden="true">
         <img class="tear-piece tear-left" id="tearLeft" alt="">
         <img class="tear-piece tear-right" id="tearRight" alt="">
@@ -85,6 +86,7 @@ const site=document.getElementById('site');
 const ticketSource=document.getElementById('ticketSource');
 const tearLeft=document.getElementById('tearLeft');
 const tearRight=document.getElementById('tearRight');
+const tearProgress=document.getElementById('tearProgress');
 
 let tearReady=false;
 
@@ -143,20 +145,79 @@ function buildTearBitmaps(){
 if(ticketSource.complete) buildTearBitmaps();
 else ticketSource.addEventListener('load',buildTearBitmaps,{once:true});
 
+function animateProgressiveTear(done){
+  const rect=ticketSource.getBoundingClientRect();
+  const dpr=Math.min(devicePixelRatio||1,1.5);
+  tearProgress.width=Math.max(2,Math.round(rect.width*dpr));
+  tearProgress.height=Math.max(2,Math.round(rect.height*dpr));
+  tearProgress.style.opacity='1';
+  const ctx=tearProgress.getContext('2d',{alpha:true});
+  const img=ticketSource;
+  const W=tearProgress.width,H=tearProgress.height;
+  const tearPts=[[.505,0],[.488,.08],[.514,.17],[.486,.27],[.511,.37],[.489,.47],[.516,.58],[.487,.69],[.512,.80],[.491,.91],[.503,1]];
+  const t0=performance.now(),duration=340;
+
+  function frame(now){
+    const t=Math.min(1,(now-t0)/duration);
+    const eased=1-Math.pow(1-t,2.2);
+    const yCut=eased*H;
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(img,0,0,W,H);
+
+    // Dark irregular opening travels from top to bottom.
+    ctx.save();
+    ctx.globalCompositeOperation='destination-out';
+    ctx.beginPath();
+    const gap=1.5*dpr + eased*2.2*dpr;
+    for(let i=0;i<tearPts.length;i++){
+      const x=tearPts[i][0]*W, y=tearPts[i][1]*H;
+      if(y>yCut) break;
+      if(i===0) ctx.moveTo(x-gap,y); else ctx.lineTo(x-gap,y);
+    }
+    // build a narrow ragged strip back upward
+    let last=0;
+    for(let i=0;i<tearPts.length;i++){if(tearPts[i][1]*H<=yCut) last=i}
+    for(let i=last;i>=0;i--){
+      const x=tearPts[i][0]*W, y=tearPts[i][1]*H;
+      ctx.lineTo(x+gap,y);
+    }
+    ctx.closePath();ctx.fill();
+    ctx.restore();
+
+    if(t<1) requestAnimationFrame(frame);
+    else{
+      tearProgress.style.opacity='0';
+      done();
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
 enter.addEventListener('click',()=>{
   if(enter.classList.contains('opening')) return;
   buildTearBitmaps();
-  // Fallback: if rasterization is not ready, keep the original visible.
   if(!tearReady) return;
 
   enter.classList.add('opening');
+  // Keep the original visible while the tear travels downward.
+  ticketSource.style.visibility='visible';
+  tearLeft.style.opacity='0';
+  tearRight.style.opacity='0';
 
+  animateProgressiveTear(()=>{
+    ticketSource.style.visibility='hidden';
+    tearLeft.style.opacity='';
+    tearRight.style.opacity='';
+  });
+
+  // Main page begins appearing while the short downward fall is fading.
   setTimeout(()=>{
-    intro.classList.add('done');
     site.classList.add('visible');
     document.body.classList.remove('lock');
-    setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),160);
-  },1280);
+    setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),100);
+  },720);
+
+  setTimeout(()=>intro.classList.add('done'),980);
 });
 
 const io=new IntersectionObserver(entries=>entries.forEach(e=>{
