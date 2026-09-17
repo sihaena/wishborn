@@ -1117,6 +1117,114 @@ body.modal-open{overflow:hidden}
   width:100%;
 }
 
+
+/* 07 — PLAY */
+.play-sequence{
+  position:relative;
+  min-height:92svh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  padding:clamp(100px,13vh,160px) clamp(24px,7vw,110px);
+  background:
+    radial-gradient(circle at 78% 52%,rgba(117,27,42,.12),transparent 28%),
+    #08090b;
+}
+.play-inner{width:100%;position:relative;z-index:2}
+.play-copy{width:min(660px,70vw)}
+.play-kicker{
+  margin:0 0 9px;
+  color:rgba(194,74,93,.64);
+  font-size:8px;
+  letter-spacing:.24em;
+}
+.play-copy h2{
+  margin:0;
+  color:#ededee;
+  font-size:clamp(44px,6.1vw,88px);
+  line-height:1.08;
+  font-weight:350;
+  letter-spacing:-.055em;
+}
+.play-body{
+  margin:24px 0 0;
+  color:rgba(185,187,192,.48);
+  font-size:clamp(11px,1vw,14px);
+  letter-spacing:.04em;
+}
+.play-links{
+  width:min(880px,100%);
+  margin-top:clamp(55px,8vh,90px);
+  border-top:1px solid rgba(255,255,255,.10);
+}
+.play-link{
+  appearance:none;
+  width:100%;
+  min-height:86px;
+  display:grid;
+  grid-template-columns:64px 1fr 40px;
+  align-items:center;
+  gap:14px;
+  padding:0 4px;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.09);
+  background:transparent;
+  color:#dfe0e2;
+  text-align:left;
+  cursor:default;
+  transition:background .28s ease,padding .28s ease;
+}
+.play-link:hover{
+  padding-left:12px;
+  background:linear-gradient(90deg,rgba(117,27,42,.10),transparent 68%);
+}
+.play-index{
+  color:rgba(194,74,93,.62);
+  font-size:8px;
+  letter-spacing:.14em;
+}
+.play-link strong{
+  font-size:clamp(19px,2vw,27px);
+  font-weight:400;
+  letter-spacing:.12em;
+}
+.play-arrow{
+  justify-self:end;
+  color:rgba(213,214,217,.34);
+  font-size:18px;
+}
+.play-note{
+  margin:18px 0 0;
+  color:rgba(180,182,187,.25);
+  font-size:7px;
+  letter-spacing:.10em;
+}
+.play-glow{
+  position:absolute;
+  width:34vw;
+  height:34vw;
+  right:-12vw;
+  top:31%;
+  border-radius:50%;
+  background:rgba(117,27,42,.08);
+  filter:blur(90px);
+  pointer-events:none;
+}
+@media(max-width:600px){
+  .play-sequence{
+    min-height:88svh;
+    padding:90px 20px 100px;
+  }
+  .play-copy{width:100%}
+  .play-copy h2{font-size:clamp(42px,12vw,60px)}
+  .play-links{margin-top:52px}
+  .play-link{
+    min-height:72px;
+    grid-template-columns:42px 1fr 28px;
+  }
+  .play-link strong{font-size:18px}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -1404,6 +1512,38 @@ body.modal-open{overflow:hidden}
     </div>
   </article>
 </div>
+<section class="play-sequence section" id="play">
+  <div class="play-inner">
+    <div class="play-copy reveal">
+      <span class="section-no">07 / PLAY</span>
+      <p class="play-kicker">THE INVITATION IS STILL OPEN.</p>
+      <h2>당신의 소원은<br>무엇입니까?</h2>
+      <p class="play-body">WISHBORN의 참가자들을 만나보세요.</p>
+    </div>
+
+    <div class="play-links">
+      <button class="play-link reveal" type="button" data-platform="TINGLE">
+        <span class="play-index">01</span>
+        <strong>TINGLE</strong>
+        <span class="play-arrow">↗</span>
+      </button>
+      <button class="play-link reveal" type="button" data-platform="CAVEDUCK">
+        <span class="play-index">02</span>
+        <strong>CAVEDUCK</strong>
+        <span class="play-arrow">↗</span>
+      </button>
+      <button class="play-link reveal" type="button" data-platform="INKCHAT">
+        <span class="play-index">03</span>
+        <strong>INKCHAT</strong>
+        <span class="play-arrow">↗</span>
+      </button>
+    </div>
+
+    <p class="play-note reveal">플랫폼 링크는 공개 주소 연결 전까지 비활성화됩니다.</p>
+  </div>
+  <div class="play-glow" aria-hidden="true"></div>
+</section>
+
 
 
 
