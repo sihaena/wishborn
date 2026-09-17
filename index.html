@@ -1529,6 +1529,58 @@ body.modal-open{overflow:hidden}
   }
 }
 
+
+/* MOBILE — preserve artwork instead of hard cropping */
+@media(max-width:720px){
+  .hero-visual img,
+  .hero-bg img,
+  .hero-image img,
+  .invite-image img,
+  .wish-image img,
+  .wish-visual img,
+  .deathmatch-bg img{
+    object-fit:contain !important;
+    object-position:center center !important;
+  }
+
+  /* dark backing fills the empty space created by contain */
+  .hero-visual,.hero-bg,.hero-image,
+  .invite-image,.wish-image,.wish-visual,.deathmatch-bg{
+    background:#08090b !important;
+  }
+
+  /* 03 / 05 artwork cards: show the whole illustration */
+  .round-card,
+  .between-shot{
+    background:#08090b !important;
+  }
+  .round-card img,
+  .between-shot img{
+    object-fit:contain !important;
+    object-position:center center !important;
+  }
+
+  /* make contained cards larger so they do not feel tiny */
+  .round-card-a{
+    width:88vw !important;
+    height:48vh !important;
+  }
+  .round-card-b{
+    width:62vw !important;
+    height:31vh !important;
+    left:2vw !important;
+  }
+  .between-shot-a{
+    width:86vw !important;
+    height:43vh !important;
+  }
+  .between-shot-b{
+    width:61vw !important;
+    height:29vh !important;
+    left:2vw !important;
+  }
+}
+
 </style>
 </head>
 <body class="lock">
