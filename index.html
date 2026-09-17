@@ -284,6 +284,106 @@
   .mobile-only{display:block}
 }
 
+
+/* 02 — WISH */
+.wish-sequence{
+  position:relative;
+  min-height:112svh;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#07080a;
+  isolation:isolate;
+}
+.wish-visual{
+  position:absolute;
+  inset:7vh clamp(20px,5vw,78px);
+  z-index:-3;
+  overflow:hidden;
+}
+.wish-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(.68) contrast(1.08) saturate(.82);
+}
+.wish-visual-shade{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(7,8,10,.04) 0%,rgba(7,8,10,.12) 36%,rgba(7,8,10,.72) 100%),
+    linear-gradient(to bottom,#07080a 0%,transparent 22%,transparent 70%,#07080a 100%);
+}
+.wish-copy{
+  position:relative;
+  z-index:2;
+  width:min(720px,82vw);
+  text-align:center;
+}
+.wish-kicker{
+  margin:0 0 6px;
+  color:rgba(211,212,216,.66);
+  font-size:clamp(13px,1.35vw,17px);
+  letter-spacing:.12em;
+}
+.wish-copy h2{
+  margin:0;
+  color:#ececee;
+  font-size:clamp(48px,7.5vw,104px);
+  line-height:1.05;
+  font-weight:400;
+  letter-spacing:-.045em;
+  text-shadow:0 8px 32px rgba(0,0,0,.65);
+}
+.wish-line{
+  width:1px;
+  height:42px;
+  margin:28px auto 22px;
+  background:linear-gradient(to bottom,rgba(194,74,93,.9),rgba(194,74,93,.06));
+}
+.wish-body{
+  margin:0;
+  color:rgba(190,192,197,.62);
+  font-size:clamp(11px,1.05vw,14px);
+  line-height:1.9;
+  letter-spacing:.045em;
+}
+.wish-body strong{
+  color:rgba(232,232,234,.88);
+  font-weight:500;
+  letter-spacing:.12em;
+}
+.wish-word{
+  position:absolute;
+  left:50%;
+  bottom:-.12em;
+  transform:translateX(-50%);
+  z-index:-1;
+  font-size:clamp(120px,26vw,390px);
+  line-height:.72;
+  letter-spacing:.02em;
+  color:rgba(255,255,255,.018);
+  font-family:Georgia,"Times New Roman",serif;
+  white-space:nowrap;
+  user-select:none;
+}
+@media(max-width:720px){
+  .wish-sequence{min-height:104svh}
+  .wish-visual{inset:0}
+  .wish-visual img{object-position:center}
+  .wish-visual-shade{
+    background:
+      radial-gradient(circle at 50% 44%,rgba(7,8,10,.06),rgba(7,8,10,.40) 58%,#07080a 100%),
+      linear-gradient(to bottom,#07080a 0%,transparent 18%,transparent 68%,#07080a 100%);
+  }
+  .wish-copy{width:88vw}
+  .wish-copy h2{font-size:clamp(46px,15vw,72px)}
+  .wish-line{height:34px;margin:22px auto 18px}
+  .wish-body{font-size:11px;line-height:1.85}
+  .wish-word{font-size:35vw;bottom:1vh}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -340,6 +440,26 @@
     </div>
   </div>
 </section>
+<section class="wish-sequence section" id="wish">
+  <div class="wish-visual reveal">
+    <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/wish.png" alt="">
+    <div class="wish-visual-shade" aria-hidden="true"></div>
+  </div>
+
+  <div class="wish-copy reveal">
+    <span class="section-no">02 / WISH</span>
+    <p class="wish-kicker">가장 깊은 소원은</p>
+    <h2>힘이 된다.</h2>
+    <div class="wish-line" aria-hidden="true"></div>
+    <p class="wish-body">
+      ROUND 0에서 처음 모습을 드러내는 힘.<br>
+      참가자마다 단 하나의 <strong>WISH</strong>를 가진다.
+    </p>
+  </div>
+
+  <div class="wish-word" aria-hidden="true">WISH</div>
+</section>
+
 
     <div class="divider"></div>
     <section class="section center"><div class="section-inner"><div class="reveal number glow">49</div><h2 class="reveal headline" style="margin-top:36px">버튼을 누른 사람은 49명.</h2><p class="reveal body">그게 실수였든,<br>소원이 있었든.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="WISHBORN 참가자들"></div></div></section>
