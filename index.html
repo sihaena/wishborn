@@ -1402,6 +1402,133 @@ body.modal-open{overflow:hidden}
   .play-character{width:96%;min-height:40px}
 }
 
+
+/* MOBILE IMAGE COMPOSITION FIX */
+@media(max-width:720px){
+  /* HERO: prevent desktop phone composition from being stretched/cropped oddly */
+  .hero-visual,
+  .hero-bg,
+  .hero-image{
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .hero-visual img,
+  .hero-bg img,
+  .hero-image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+  }
+
+  /* 01 INVITATION: desktop right-side image box must not survive on mobile */
+  .invite-image{
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .invite-image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+  }
+
+  /* 02 WISH */
+  .wish-image,
+  .wish-visual{
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .wish-image img,
+  .wish-visual img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+  }
+
+  /* 03 ROUND: keep both cards inside the viewport instead of desktop-offset clipping */
+  .round-visuals{
+    inset:0 !important;
+    overflow:hidden !important;
+  }
+  .round-card-a{
+    width:76vw !important;
+    height:48vh !important;
+    left:50% !important;
+    right:auto !important;
+    top:5vh !important;
+    bottom:auto !important;
+    transform:translateX(-50%) !important;
+  }
+  .round-card-b{
+    width:54vw !important;
+    height:29vh !important;
+    left:5vw !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:28vh !important;
+    transform:none !important;
+  }
+  .round-card img{
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+
+  /* 04 DEATHMATCH */
+  .deathmatch-bg{
+    inset:0 !important;
+  }
+  .deathmatch-bg img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    transform:none !important;
+  }
+
+  /* 05 BETWEEN ROUNDS */
+  .between-gallery{
+    inset:0 !important;
+    overflow:hidden !important;
+  }
+  .between-shot-a{
+    width:72vw !important;
+    height:43vh !important;
+    left:50% !important;
+    right:auto !important;
+    top:5vh !important;
+    bottom:auto !important;
+    transform:translateX(-50%) !important;
+  }
+  .between-shot-b{
+    width:52vw !important;
+    height:28vh !important;
+    left:5vw !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:31vh !important;
+    transform:none !important;
+  }
+  .between-shot img{
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+
+  /* Participant popup portrait */
+  .participant-popup-image img{
+    object-fit:cover !important;
+    object-position:center top !important;
+    transform:none !important;
+  }
+}
+
 </style>
 </head>
 <body class="lock">
