@@ -13,7 +13,7 @@
 .intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,rgba(117,27,42,.16),transparent 28rem),#050608;transition:opacity .55s ease,visibility .55s ease}
 .intro.done{opacity:0;visibility:hidden;pointer-events:none}
 .intro-inner{text-align:center;width:min(94vw,900px)}
-.intro-kicker{font-size:10px;letter-spacing:.32em;color:#8f9095;margin-bottom:24px;transition:opacity .14s ease,transform .14s ease}
+.intro-kicker{font-size:10px;letter-spacing:.32em;color:#8f9095;margin-bottom:24px;transition:opacity .22s ease,transform .22s ease}
 .ticket-button{position:relative;width:min(74vw,720px);height:auto;margin:auto;border:0;padding:0;background:transparent;cursor:pointer;filter:drop-shadow(0 24px 45px rgba(0,0,0,.65));transition:transform .35s ease,filter .35s ease}
 .ticket-button:hover{transform:translateY(-5px) scale(1.01);filter:drop-shadow(0 28px 55px rgba(117,27,42,.30))}
 .ticket-source{display:block;width:100%;height:auto;pointer-events:none}
@@ -21,9 +21,9 @@
 .tear-layer{position:absolute;inset:0;pointer-events:none;z-index:2}
 .tear-piece{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:translate3d(0,0,0);backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
 .rip-flash{display:none}
-.intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em;transition:opacity .14s ease,transform .14s ease}
+.intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em;transition:opacity .22s ease,transform .22s ease}
 .ticket-button.opening{pointer-events:none;filter:none}
-.intro-inner:has(.ticket-button.opening) .intro-kicker,.intro-inner:has(.ticket-button.opening) .intro-hint{opacity:0;transform:translateY(-4px)}
+.intro-inner:has(.ticket-button.opening) .intro-kicker,.intro-inner:has(.ticket-button.opening) .intro-hint{opacity:0;transform:translateY(0)}
 
 
 /* Detached pieces only start after the travelling tear is complete. */
@@ -249,6 +249,7 @@ enter.addEventListener('click',()=>{
   if(!tearReady) return;
 
   enter.classList.add('opening');
+  // Text fade and ticket tear begin together on this same click/frame.
   // Keep the original visible while the tear travels downward.
   ticketSource.style.visibility='visible';
 
