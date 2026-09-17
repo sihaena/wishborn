@@ -50,6 +50,123 @@
 .end{min-height:70svh;padding:120px 24px;display:grid;place-items:center;text-align:center}.end p{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,7vw,52px);line-height:1.35;margin:0}
 @media(max-width:560px){.section{padding:90px 22px}.participants{padding:100px 22px}.cards{gap:8px}.unknown:before{font-size:5px;top:8px;left:8px}.ticket-button{width:92vw;height:auto}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;filter:none;transition:none!important}.ticket-button,.intro,.site{transition:none!important}}
+
+/* opening hero — quiet after the ticket tear */
+.hero-opening{
+  min-height:100svh;
+  position:relative;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  padding:clamp(90px,12vh,150px) 24px;
+  background:#07080a;
+}
+.hero-opening-bg{
+  position:absolute;
+  inset:-3%;
+  z-index:-3;
+  opacity:.26;
+  transform:scale(1.035);
+}
+.hero-opening-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:grayscale(.42) brightness(.52) contrast(1.12);
+}
+.hero-opening-vignette{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(7,8,10,.12) 0 17%,rgba(7,8,10,.62) 58%,#07080a 93%),
+    linear-gradient(to bottom,#07080a 0%,rgba(7,8,10,.22) 22%,rgba(7,8,10,.32) 70%,#07080a 100%);
+}
+.hero-opening-copy{
+  width:min(900px,92vw);
+  text-align:center;
+  transform:translateY(-1.5vh);
+}
+.hero-eyebrow{
+  margin-bottom:18px;
+  font-size:10px;
+  letter-spacing:.52em;
+  color:rgba(214,216,221,.48);
+}
+.hero-logo{
+  margin:0;
+  font-size:clamp(52px,10vw,126px);
+  line-height:.86;
+  letter-spacing:.065em;
+  font-weight:500;
+  color:#e5e5e7;
+  text-shadow:0 0 42px rgba(194,74,93,.12);
+}
+.hero-tagline{
+  margin:30px 0 0;
+  font-size:clamp(14px,1.6vw,20px);
+  letter-spacing:.12em;
+  color:rgba(231,231,233,.78);
+  font-weight:300;
+}
+.hero-rule{
+  width:38px;
+  height:1px;
+  margin:26px auto 19px;
+  background:rgba(194,74,93,.66);
+}
+.hero-subcopy{
+  margin:0;
+  font-size:9px;
+  letter-spacing:.28em;
+  color:rgba(170,172,177,.52);
+}
+.hero-scroll{
+  position:absolute;
+  left:50%;
+  bottom:26px;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  color:rgba(174,176,181,.42);
+  font-size:8px;
+  letter-spacing:.34em;
+}
+.hero-scroll i{
+  display:block;
+  width:1px;
+  height:34px;
+  overflow:hidden;
+  position:relative;
+  background:rgba(255,255,255,.10);
+}
+.hero-scroll i::after{
+  content:"";
+  position:absolute;
+  left:0;top:-60%;
+  width:1px;height:55%;
+  background:rgba(220,220,222,.62);
+  animation:scrollLine 1.9s ease-in-out infinite;
+}
+@keyframes scrollLine{
+  0%{transform:translateY(0);opacity:0}
+  20%{opacity:1}
+  75%{opacity:1}
+  100%{transform:translateY(290%);opacity:0}
+}
+@media (max-width:640px){
+  .hero-opening{padding-left:18px;padding-right:18px}
+  .hero-opening-bg{inset:-7%;opacity:.23}
+  .hero-logo{font-size:clamp(48px,16vw,78px);letter-spacing:.035em}
+  .hero-tagline{margin-top:24px;font-size:13px;letter-spacing:.08em}
+  .hero-subcopy{font-size:8px;letter-spacing:.20em}
+  .hero-scroll{bottom:20px}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -71,10 +188,25 @@
 </section>
 <main class="site" id="site">
   <div class="wrap">
-    <section class="hero">
-      <div class="reveal"><h1>WISHBORN</h1><p class="tagline">살아남을수록, 소원은 선명해진다.</p><p class="meta">49 PEOPLE · 7 ROUNDS · 1 WISH</p></div>
-      <div class="scroll-mark">SCROLL TO ENTER ↓</div>
-    </section>
+    <section class="hero hero-opening" id="top">
+  <div class="hero-opening-bg" aria-hidden="true">
+    <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/hero_phone.png" alt="">
+  </div>
+  <div class="hero-opening-vignette" aria-hidden="true"></div>
+
+  <div class="hero-opening-copy reveal">
+    <div class="hero-eyebrow">WISHBORN</div>
+    <h1 class="hero-logo" aria-label="WISHBORN">WISHBORN</h1>
+    <p class="hero-tagline">살아남을수록, 소원은 선명해진다.</p>
+    <div class="hero-rule"></div>
+    <p class="hero-subcopy">49 PLAYERS&nbsp;&nbsp;·&nbsp;&nbsp;A SINGLE WISH</p>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>SCROLL</span>
+    <i></i>
+  </div>
+</section>
     <div class="divider"></div>
     <section class="section center"><div class="section-inner"><div class="reveal number glow">49</div><h2 class="reveal headline" style="margin-top:36px">버튼을 누른 사람은 49명.</h2><p class="reveal body">그게 실수였든,<br>소원이 있었든.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="WISHBORN 참가자들"></div></div></section>
     <div class="divider"></div>
@@ -263,6 +395,7 @@ enter.addEventListener('click',()=>{
   // Main page begins appearing while the short downward fall is fading.
   setTimeout(()=>{
     site.classList.add('visible');
+    document.querySelector('.hero-opening-bg')?.animate([{opacity:0},{opacity:.26}],{duration:1100,easing:'ease-out',fill:'forwards'});
     document.body.classList.remove('lock');
     setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),100);
   },700);
