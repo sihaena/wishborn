@@ -26,16 +26,15 @@
 .ticket-button.opening+.intro-hint{animation:hintOut .18s ease forwards}
 
 /* Detached pieces only start after the travelling tear is complete. */
-.ticket-button.detached .tear-left{opacity:1;animation:dropLeft .46s cubic-bezier(.18,.74,.28,1) both,pieceFade .30s ease-out .05s both}
-.ticket-button.detached .tear-right{opacity:1;animation:dropRight .46s cubic-bezier(.18,.74,.28,1) both,pieceFade .30s ease-out .05s both}
+.ticket-button.detached .tear-left,
+.ticket-button.detached .tear-right{opacity:1}
 
-@keyframes dropLeft{from{transform:translate3d(0,0,0) rotate(0deg)}to{transform:translate3d(-1.4vw,7vh,0) rotate(-3.5deg)}}45%{transform:translate3d(-.8vw,4vh,0) rotate(-2deg);opacity:.34}100%{transform:translate3d(-1.5vw,8vh,0) rotate(-4deg);opacity:0}}
+@keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0);opacity:1}45%{transform:translate3d(-.8vw,4vh,0) rotate(-2deg);opacity:.34}100%{transform:translate3d(-1.5vw,8vh,0) rotate(-4deg);opacity:0}}
   22%{transform:translate3d(-.7vw,2.8vh,0) rotate(-1.5deg);opacity:.72}
   55%{transform:translate3d(-1.8vw,7vh,0) rotate(-3.5deg);opacity:.20}
   100%{transform:translate3d(-2.8vw,11vh,0) rotate(-5deg);opacity:0}
 }
-@keyframes dropRight{from{transform:translate3d(0,0,0) rotate(0deg)}to{transform:translate3d(1.4vw,7vh,0) rotate(3.5deg)}}
-@keyframes pieceFade{from{opacity:1}to{opacity:0}}45%{transform:translate3d(.8vw,4vh,0) rotate(2deg);opacity:.34}100%{transform:translate3d(1.5vw,8vh,0) rotate(4deg);opacity:0}}
+@keyframes tearRight{0%{transform:translate3d(0,0,0) rotate(0);opacity:1}45%{transform:translate3d(.8vw,4vh,0) rotate(2deg);opacity:.34}100%{transform:translate3d(1.5vw,8vh,0) rotate(4deg);opacity:0}}
   22%{transform:translate3d(.7vw,2.8vh,0) rotate(1.5deg);opacity:.72}
   55%{transform:translate3d(1.8vw,7vh,0) rotate(3.5deg);opacity:.20}
   100%{transform:translate3d(2.8vw,11vh,0) rotate(5deg);opacity:0}
@@ -149,50 +148,90 @@ else ticketSource.addEventListener('load',buildTearBitmaps,{once:true});
 
 function animateProgressiveTear(done){
   const rect=ticketSource.getBoundingClientRect();
-  const dpr=Math.min(devicePixelRatio||1,1.15);
-  tearProgress.width=Math.max(2,Math.round(rect.width*dpr));
-  tearProgress.height=Math.max(2,Math.round(rect.height*dpr));
+  const dpr=Math.min(devicePixelRatio||1,1.5);
+  const W=Math.max(2,Math.round(rect.width*dpr));
+  const H=Math.max(2,Math.round(rect.height*dpr));
+
+  tearProgress.width=W;
+  tearProgress.height=H;
   tearProgress.style.opacity='1';
+
   const ctx=tearProgress.getContext('2d',{alpha:true});
-  const img=ticketSource;
-  const W=tearProgress.width,H=tearProgress.height;
-  const tearPts=[[.505,0],[.488,.08],[.514,.17],[.486,.27],[.511,.37],[.489,.47],[.516,.58],[.487,.69],[.512,.80],[.491,.91],[.503,1]];
-  const t0=performance.now(),duration=270;
+  ctx.clearRect(0,0,W,H);
+  ctx.drawImage(ticketSource,0,0,W,H);
+
+  const pts=[
+    [.505,0],[.488,.08],[.514,.17],[.486,.27],[.511,.37],
+    [.489,.47],[.516,.58],[.487,.69],[.512,.80],[.491,.91],[.503,1]
+  ].map(([x,y])=>[x*W,y*H]);
+
+  function xAtY(y){
+    const ny=y/H;
+    for(let i=0;i<pts.length-1;i++){
+      const y0=pts[i][1]/H, y1=pts[i+1][1]/H;
+      if(ny>=y0 && ny<=y1){
+        const q=(ny-y0)/(y1-y0 || 1);
+        return pts[i][0]+(pts[i+1][0]-pts[i][0])*q;
+      }
+    }
+    return pts[pts.length-1][0];
+  }
+
+  const duration=320;
+  const t0=performance.now();
+  let lastY=0;
 
   function frame(now){
-    const t=Math.min(1,(now-t0)/duration);
-    const eased=1-Math.pow(1-t,2.2);
-    const yCut=eased*H;
-    ctx.clearRect(0,0,W,H);
-    ctx.drawImage(img,0,0,W,H);
+    const p=Math.min(1,(now-t0)/duration);
+    const eased=1-Math.pow(1-p,2);
+    const y=eased*H;
 
-    // Dark irregular opening travels from top to bottom.
-    ctx.save();
-    ctx.globalCompositeOperation='destination-out';
-    ctx.beginPath();
-    const gap=1.5*dpr + eased*2.2*dpr;
-    for(let i=0;i<tearPts.length;i++){
-      const x=tearPts[i][0]*W, y=tearPts[i][1]*H;
-      if(y>yCut) break;
-      if(i===0) ctx.moveTo(x-gap,y); else ctx.lineTo(x-gap,y);
+    // Only erase the NEW tiny section of the tear.
+    // The whole ticket is no longer redrawn every frame.
+    if(y>lastY){
+      ctx.save();
+      ctx.globalCompositeOperation='destination-out';
+      ctx.lineCap='round';
+      ctx.lineJoin='round';
+      ctx.lineWidth=Math.max(2.2*dpr,3);
+      ctx.beginPath();
+      const step=Math.max(2,4*dpr);
+      let yy=lastY;
+      ctx.moveTo(xAtY(yy),yy);
+      for(;yy<=y;yy+=step) ctx.lineTo(xAtY(yy),yy);
+      ctx.lineTo(xAtY(y),y);
+      ctx.stroke();
+      ctx.restore();
+      lastY=y;
     }
-    // build a narrow ragged strip back upward
-    let last=0;
-    for(let i=0;i<tearPts.length;i++){if(tearPts[i][1]*H<=yCut) last=i}
-    for(let i=last;i>=0;i--){
-      const x=tearPts[i][0]*W, y=tearPts[i][1]*H;
-      ctx.lineTo(x+gap,y);
-    }
-    ctx.closePath();ctx.fill();
-    ctx.restore();
 
-    if(t<1) requestAnimationFrame(frame);
-    else{
-      tearProgress.style.opacity='0';
-      done();
-    }
+    if(p<1) requestAnimationFrame(frame);
+    else done();
   }
   requestAnimationFrame(frame);
+}
+
+function dropBothPieces(){
+  enter.classList.add('detached');
+
+  const common={
+    duration:500,
+    easing:'cubic-bezier(.20,.72,.25,1)',
+    fill:'forwards'
+  };
+
+  // Explicit independent animations: no shared CSS transform/opacity conflict.
+  tearLeft.animate([
+    {transform:'translate3d(0,0,0) rotate(0deg)',opacity:1},
+    {transform:'translate3d(-0.7vw,3.2vh,0) rotate(-1.5deg)',opacity:.58,offset:.38},
+    {transform:'translate3d(-1.6vw,8vh,0) rotate(-4deg)',opacity:0}
+  ],common);
+
+  tearRight.animate([
+    {transform:'translate3d(0,0,0) rotate(0deg)',opacity:1},
+    {transform:'translate3d(0.7vw,3.2vh,0) rotate(1.5deg)',opacity:.58,offset:.38},
+    {transform:'translate3d(1.6vw,8vh,0) rotate(4deg)',opacity:0}
+  ],common);
 }
 
 enter.addEventListener('click',()=>{
@@ -207,9 +246,8 @@ enter.addEventListener('click',()=>{
 
   animateProgressiveTear(()=>{
     ticketSource.style.visibility='hidden';
-    requestAnimationFrame(()=>{
-      enter.classList.add('detached');
-    });
+    tearProgress.style.opacity='0';
+    dropBothPieces();
   });
 
   // Main page begins appearing while the short downward fall is fading.
@@ -217,7 +255,7 @@ enter.addEventListener('click',()=>{
     site.classList.add('visible');
     document.body.classList.remove('lock');
     setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),100);
-  },560);
+  },700);
 
   setTimeout(()=>intro.classList.add('done'),980);
 });
