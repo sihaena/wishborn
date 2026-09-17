@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080a">
+<title>WISHBORN</title>
+<style>
+:root{--bg:#07080a;--text:#f4f2f2;--muted:#9b9ca2;--wine:#781c2c;--red:#c14b60;--line:rgba(255,255,255,.09);--max:960px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--text);font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all;overflow-x:hidden}body.lock{overflow:hidden}button{font:inherit}img{display:block;width:100%}
+#particles{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.7}
+/* intro */
+.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,rgba(117,27,42,.16),transparent 28rem),#050608;transition:opacity .8s ease,visibility .8s ease}.intro.done{opacity:0;visibility:hidden;pointer-events:none}.intro-inner{text-align:center;width:min(88vw,720px)}.intro-kicker{font-size:10px;letter-spacing:.32em;color:#8f9095;margin-bottom:24px}.ticket-button{position:relative;width:min(78vw,620px);aspect-ratio:2.65/1;margin:auto;border:0;padding:0;background:transparent;cursor:pointer;filter:drop-shadow(0 24px 45px rgba(0,0,0,.65));transition:transform .35s ease,filter .35s ease}.ticket-button:hover{transform:translateY(-6px) rotate(-1deg);filter:drop-shadow(0 28px 55px rgba(117,27,42,.28))}.ticket{position:absolute;inset:0;border:1px solid rgba(225,220,220,.28);clip-path:polygon(2% 0,98% 0,100% 10%,98.5% 20%,100% 30%,98.5% 40%,100% 50%,98.5% 60%,100% 70%,98.5% 80%,100% 90%,98% 100%,2% 100%,0 90%,1.5% 80%,0 70%,1.5% 60%,0 50%,1.5% 40%,0 30%,1.5% 20%,0 10%);background:linear-gradient(120deg,rgba(255,255,255,.10),rgba(255,255,255,.025) 30%,rgba(117,27,42,.18) 52%,rgba(255,255,255,.035) 75%),#121317;overflow:hidden}.ticket:before{content:"";position:absolute;inset:9%;border:1px solid rgba(255,255,255,.18)}.ticket:after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 0 45%,rgba(255,255,255,.11) 49%,transparent 53%);opacity:.55}.ticket-content{position:absolute;inset:0;display:grid;place-items:center}.ticket-logo{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,7vw,64px);letter-spacing:.09em;text-shadow:0 0 22px rgba(255,255,255,.12)}.ticket-small{margin-top:10px;color:#b8b7ba;font-size:clamp(7px,1.6vw,11px);letter-spacing:.24em}.tear{position:absolute;top:-10%;bottom:-10%;left:50%;width:1px;background:rgba(255,255,255,.42);box-shadow:0 0 14px rgba(255,255,255,.25);opacity:.45;transform:rotate(4deg)}.intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em}.ticket-button.opening .ticket{animation:ticketFade .75s ease forwards}.ticket-button.opening{animation:ticketBreak .75s cubic-bezier(.2,.7,.2,1) forwards}@keyframes ticketBreak{35%{transform:scale(1.04) rotate(-1deg)}100%{transform:scale(.82) rotate(7deg);filter:blur(8px);opacity:0}}@keyframes ticketFade{100%{opacity:0}}
+/* page */
+.site{position:relative;z-index:2;opacity:0;transition:opacity 1s ease}.site.visible{opacity:1}.wrap{width:min(100%,var(--max));margin:auto}.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 24px;background:radial-gradient(circle at 50% 30%,rgba(117,27,42,.17),transparent 25rem)}.hero h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(52px,14vw,108px);line-height:.9;letter-spacing:.075em}.tagline{margin-top:22px;color:#d7d4d5;font-size:clamp(14px,3vw,18px)}.meta{margin-top:26px;color:#7d7f85;font-size:10px;font-weight:700;letter-spacing:.25em}.scroll-mark{position:absolute;bottom:28px;font-size:9px;color:#57595e;letter-spacing:.25em}
+.section{min-height:72svh;padding:110px 24px;display:flex;align-items:center}.section-inner{width:100%}.eyebrow{color:#b75b6a;font-size:10px;font-weight:800;letter-spacing:.24em;margin-bottom:16px}.headline{font-size:clamp(34px,8vw,62px);line-height:1.15;letter-spacing:-.045em;margin:0}.body{margin-top:22px;color:#a9aab0;font-size:14px;line-height:1.9;max-width:620px}.center{text-align:center}.center .body{margin-left:auto;margin-right:auto}.number{font-family:Georgia,"Times New Roman",serif;font-size:clamp(110px,30vw,220px);line-height:.75;letter-spacing:-.08em}.accent{color:var(--red)}.visual{margin-top:42px;overflow:hidden;border:1px solid var(--line);background:#101114;box-shadow:0 0 50px rgba(117,27,42,.08)}.visual img{aspect-ratio:2/1;object-fit:cover}.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+/* reveal */
+.reveal{opacity:0;transform:translateY(42px);filter:blur(5px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1),filter 1s ease}.reveal.on{opacity:1;transform:none;filter:none}.glow.reveal.on{animation:glowOut 1.7s ease .15s both}@keyframes glowOut{0%{text-shadow:0 0 0 rgba(194,74,93,0)}35%{text-shadow:0 0 26px rgba(194,74,93,.45)}100%{text-shadow:0 0 0 rgba(194,74,93,0)}}
+/* placeholder participant teaser */
+.participants{padding:120px 24px 140px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:42px}.unknown{aspect-ratio:1/1;border:1px solid rgba(255,255,255,.11);background:radial-gradient(circle at 50% 35%,rgba(117,27,42,.16),transparent 45%),#0e0f12;display:grid;place-items:center;position:relative;overflow:hidden;color:#666970}.unknown:before{content:"PARTICIPANT";position:absolute;top:12px;left:12px;font-size:7px;letter-spacing:.2em;color:#696b70}.unknown span{font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,8vw,64px);opacity:.5}.unknown:hover{border-color:rgba(194,74,93,.45);box-shadow:0 0 35px rgba(117,27,42,.18)}
+.end{min-height:70svh;padding:120px 24px;display:grid;place-items:center;text-align:center}.end p{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,7vw,52px);line-height:1.35;margin:0}
+@media(max-width:560px){.section{padding:90px 22px}.participants{padding:100px 22px}.cards{gap:8px}.unknown:before{font-size:5px;top:8px;left:8px}.ticket-button{width:88vw}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;filter:none;transition:none!important}.ticket-button,.intro,.site{transition:none!important}}
+</style>
+</head>
+<body class="lock">
+<canvas id="particles"></canvas>
+<section class="intro" id="intro" aria-label="WISHBORN 입장">
+  <div class="intro-inner">
+    <div class="intro-kicker">SPECIAL INVITATION</div>
+    <button class="ticket-button" id="enter" aria-label="티켓을 눌러 WISHBORN 입장">
+      <div class="ticket"><div class="tear"></div><div class="ticket-content"><div><div class="ticket-logo">WISHBORN</div><div class="ticket-small">49 PEOPLE · 7 ROUNDS · 1 WISH</div></div></div></div>
+    </button>
+    <div class="intro-hint">CLICK THE TICKET</div>
+  </div>
+</section>
+<main class="site" id="site">
+  <div class="wrap">
+    <section class="hero">
+      <div class="reveal"><h1>WISHBORN</h1><p class="tagline">살아남을수록, 소원은 선명해진다.</p><p class="meta">49 PEOPLE · 7 ROUNDS · 1 WISH</p></div>
+      <div class="scroll-mark">SCROLL TO ENTER ↓</div>
+    </section>
+    <div class="divider"></div>
+    <section class="section center"><div class="section-inner"><div class="reveal number glow">49</div><h2 class="reveal headline" style="margin-top:36px">버튼을 누른 사람은 49명.</h2><p class="reveal body">그게 실수였든,<br>소원이 있었든.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="WISHBORN 참가자들"></div></div></section>
+    <div class="divider"></div>
+    <section class="section"><div class="section-inner"><p class="reveal eyebrow">WISH</p><h2 class="reveal headline">가장 깊은 소원은<br><span class="accent glow">힘이 된다.</span></h2><p class="reveal body">참가자의 가장 깊은 소원에서 고유한 초능력, WISH가 태어난다.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/wish.png" alt="미완성 소원권과 WISH"></div></div></section>
+    <div class="divider"></div>
+    <section class="section center"><div class="section-inner"><p class="reveal eyebrow">ROUND</p><h2 class="reveal headline">7개의 라운드.<br><span class="accent">마지막 생존자는 한 명.</span></h2><p class="reveal body">ROUND 0을 지나 공식 데스매치가 시작된다. 미션을 성공했다고 반드시 살아남는 것은 아니다.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/deathmatch.png" alt="WISHBORN 데스매치"></div></div></section>
+    <div class="divider"></div>
+    <section class="participants"><p class="reveal eyebrow">WISHBORN PARTICIPANTS</p><h2 class="reveal headline">현재 공개된 9명.</h2><p class="reveal body">다음 단계에서 카드를 클릭하면 참가자 상세 정보가 팝업되는 인터랙션을 연결합니다.</p><div class="cards"> <div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div><div class="unknown reveal"><span>?</span></div></div></section>
+    <div class="divider"></div>
+    <section class="end"><div><p class="reveal">마지막에 남는 단 한 사람.</p><p class="reveal accent" style="margin-top:20px">당신은 무엇을 소원할 것인가?</p></div></section>
+  </div>
+</main>
+<script>
+const intro=document.getElementById('intro'), enter=document.getElementById('enter'), site=document.getElementById('site');
+enter.addEventListener('click',()=>{ if(enter.classList.contains('opening'))return; enter.classList.add('opening'); setTimeout(()=>{intro.classList.add('done');site.classList.add('visible');document.body.classList.remove('lock');setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),250)},620)});
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.16,rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// restrained upward light particles
+const c=document.getElementById('particles'),ctx=c.getContext('2d');let ps=[],w,h,dpr=Math.min(devicePixelRatio||1,2);function resize(){w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0)}function seed(){ps=Array.from({length:Math.min(55,Math.floor(w/18))},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.3+.25,s:Math.random()*.22+.08,a:Math.random()*.32+.06}))}function draw(){ctx.clearRect(0,0,w,h);for(const p of ps){p.y-=p.s;if(p.y<-5){p.y=h+5;p.x=Math.random()*w}ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(210,180,186,${p.a})`;ctx.shadowBlur=8;ctx.shadowColor='rgba(150,45,65,.28)';ctx.fill()}requestAnimationFrame(draw)}addEventListener('resize',()=>{resize();seed()});resize();seed();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)draw();
+</script>
+</body>
+</html>
