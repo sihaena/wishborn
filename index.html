@@ -25,10 +25,12 @@
 .ticket-button.opening .ticket-source{visibility:visible}
 .ticket-button.opening .tear-piece{opacity:1}
 .ticket-button.opening .rip-flash{display:none}
-.ticket-button.opening .tear-left{opacity:1;animation:tearLeft .58s cubic-bezier(.2,.72,.24,1) .34s both}
-.ticket-button.opening .tear-right{opacity:1;animation:tearRight .58s cubic-bezier(.2,.72,.24,1) .34s both}
+.ticket-button.opening .tear-left{opacity:0}
+.ticket-button.opening .tear-right{opacity:0}
 .ticket-button.opening+.intro-hint{animation:hintOut .2s ease forwards}
 @keyframes ripFlash{0%{opacity:0;transform:translate3d(-50%,0,0) scaleY(.08)}42%{opacity:.95;transform:translate3d(-50%,0,0) scaleY(1)}100%{opacity:0;transform:translate3d(-50%,0,0) scaleY(1)}}
+.ticket-button.detached .tear-left{opacity:1;animation:tearLeft .58s cubic-bezier(.2,.72,.24,1) both}
+.ticket-button.detached .tear-right{opacity:1;animation:tearRight .58s cubic-bezier(.2,.72,.24,1) both}
 @keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}18%{transform:translate3d(-1.5vw,3vh,0) rotate(-2deg);opacity:.72}55%{transform:translate3d(-3.5vw,10vh,0) rotate(-5deg);opacity:.18}100%{transform:translate3d(-5vw,15vh,0) rotate(-7deg);opacity:0}}35%{opacity:.82}100%{transform:translate3d(-14vw,34vh,0) rotate(-9deg);opacity:0}}100%{transform:translate3d(-58vw,24vh,0) rotate(-17deg);opacity:0}}
 @keyframes tearRight{0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}18%{transform:translate3d(1.5vw,3vh,0) rotate(2deg);opacity:.72}55%{transform:translate3d(3.5vw,10vh,0) rotate(5deg);opacity:.18}100%{transform:translate3d(5vw,15vh,0) rotate(7deg);opacity:0}}35%{opacity:.82}100%{transform:translate3d(14vw,34vh,0) rotate(9deg);opacity:0}}100%{transform:translate3d(58vw,25vh,0) rotate(18deg);opacity:0}}
 @keyframes hintOut{to{opacity:0}}
@@ -205,7 +207,8 @@ enter.addEventListener('click',()=>{
 
   animateProgressiveTear(()=>{
     ticketSource.style.visibility='hidden';
-
+    void enter.offsetWidth;
+    enter.classList.add('detached');
   });
 
   // Main page begins appearing while the short downward fall is fading.
@@ -213,7 +216,7 @@ enter.addEventListener('click',()=>{
     site.classList.add('visible');
     document.body.classList.remove('lock');
     setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),100);
-  },720);
+  },700);
 
   setTimeout(()=>intro.classList.add('done'),980);
 });
