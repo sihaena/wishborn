@@ -526,6 +526,129 @@
   .round-index{right:20px;bottom:27px}
 }
 
+
+/* 04 — DEATHMATCH */
+.deathmatch-sequence{
+  position:relative;
+  min-height:112svh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  background:#060709;
+  isolation:isolate;
+}
+.deathmatch-bg{
+  position:absolute;
+  inset:0;
+  z-index:-3;
+}
+.deathmatch-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(.56) contrast(1.13) saturate(.72);
+  transform:scale(1.025);
+}
+.deathmatch-shade{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(6,7,9,.96) 0%,rgba(6,7,9,.76) 28%,rgba(6,7,9,.22) 63%,rgba(6,7,9,.58) 100%),
+    linear-gradient(0deg,#060709 0%,transparent 24%,transparent 78%,#060709 100%);
+}
+.deathmatch-copy{
+  position:relative;
+  z-index:2;
+  width:min(650px,48vw);
+  margin-left:clamp(24px,7vw,110px);
+}
+.deathmatch-kicker{
+  margin:0 0 10px;
+  color:rgba(201,202,206,.57);
+  font-size:clamp(12px,1.1vw,15px);
+  letter-spacing:.10em;
+}
+.deathmatch-copy h2{
+  margin:0;
+  color:#ededee;
+  font-size:clamp(42px,5.7vw,82px);
+  line-height:1.12;
+  font-weight:350;
+  letter-spacing:-.05em;
+  text-shadow:0 8px 34px rgba(0,0,0,.68);
+}
+.deathmatch-rule{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin:31px 0 23px;
+  color:rgba(226,226,229,.72);
+  font-size:9px;
+  letter-spacing:.23em;
+}
+.deathmatch-rule i{
+  display:block;
+  width:34px;
+  height:1px;
+  background:rgba(194,74,93,.58);
+}
+.deathmatch-body{
+  margin:0;
+  color:rgba(188,190,195,.59);
+  font-size:clamp(11px,1.02vw,14px);
+  line-height:1.9;
+  letter-spacing:.04em;
+}
+.deathmatch-ghost{
+  position:absolute;
+  right:-.04em;
+  bottom:.015em;
+  z-index:-1;
+  color:rgba(255,255,255,.025);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(86px,14vw,210px);
+  line-height:.78;
+  letter-spacing:-.045em;
+  white-space:nowrap;
+  user-select:none;
+}
+@media(max-width:720px){
+  .deathmatch-sequence{
+    min-height:104svh;
+    align-items:flex-end;
+    padding-bottom:14vh;
+  }
+  .deathmatch-bg img{
+    object-position:58% center;
+    transform:scale(1.02);
+  }
+  .deathmatch-shade{
+    background:
+      linear-gradient(0deg,#060709 0%,rgba(6,7,9,.94) 28%,rgba(6,7,9,.22) 62%,rgba(6,7,9,.48) 100%),
+      linear-gradient(90deg,rgba(6,7,9,.42),transparent 65%);
+  }
+  .deathmatch-copy{
+    width:calc(100% - 40px);
+    margin-left:20px;
+    margin-right:20px;
+  }
+  .deathmatch-copy h2{
+    font-size:clamp(39px,11.7vw,58px);
+  }
+  .deathmatch-rule{
+    gap:9px;
+    margin:24px 0 18px;
+    font-size:8px;
+  }
+  .deathmatch-rule i{width:22px}
+  .deathmatch-ghost{
+    right:-.02em;
+    bottom:1.5vh;
+    font-size:21vw;
+  }
+}
+
 </style>
 </head>
 <body class="lock">
@@ -629,6 +752,32 @@
     </div>
   </div>
 </section>
+<section class="deathmatch-sequence section" id="deathmatch">
+  <div class="deathmatch-bg" aria-hidden="true">
+    <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/deathmatch.png" alt="">
+    <div class="deathmatch-shade"></div>
+  </div>
+
+  <div class="deathmatch-copy reveal">
+    <span class="section-no">04 / DEATHMATCH</span>
+    <p class="deathmatch-kicker">ROUND 1부터, 탈락은 곧 끝이다.</p>
+    <h2>살아남는 사람은<br>정해져 있다.</h2>
+    <div class="deathmatch-rule">
+      <span>MISSION</span>
+      <i></i>
+      <span>TO</span>
+      <i></i>
+      <span>SURVIVE</span>
+    </div>
+    <p class="deathmatch-body">
+      미션을 끝내는 것만으로는 부족하다.<br>
+      정해진 인원 안에 들어야 다음 라운드로 향할 수 있다.
+    </p>
+  </div>
+
+  <div class="deathmatch-ghost" aria-hidden="true">DEATHMATCH</div>
+</section>
+
 
 
 
