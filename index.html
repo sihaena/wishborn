@@ -1581,6 +1581,128 @@ body.modal-open{overflow:hidden}
   }
 }
 
+
+/* MOBILE CINEMATIC COMPOSITION v2
+   Don't letterbox artwork. Use it as a full-bleed visual layer and let gradients
+   preserve the readable text area. */
+@media(max-width:720px){
+  /* restore full-bleed artwork for major visual sections */
+  .hero-visual img,.hero-bg img,.hero-image img,
+  .invite-image img,.wish-image img,.wish-visual img,
+  .deathmatch-bg img{
+    object-fit:cover !important;
+    transform:none !important;
+  }
+
+  /* intentional crop points per artwork instead of generic center */
+  .hero-visual img,.hero-bg img,.hero-image img{
+    object-position:56% center !important;
+  }
+  .invite-image img{
+    object-position:58% center !important;
+  }
+  .wish-image img,.wish-visual img{
+    object-position:58% center !important;
+  }
+  .deathmatch-bg img{
+    object-position:58% center !important;
+  }
+
+  /* 03: turn floating rectangles into cinematic layered panels */
+  .round-visuals{
+    inset:0 !important;
+    height:100% !important;
+  }
+  .round-card-a{
+    width:100vw !important;
+    height:54vh !important;
+    left:0 !important;
+    top:0 !important;
+    transform:none !important;
+    opacity:.82;
+  }
+  .round-card-b{
+    width:62vw !important;
+    height:30vh !important;
+    left:auto !important;
+    right:-7vw !important;
+    bottom:26vh !important;
+    transform:none !important;
+    opacity:.72;
+    box-shadow:0 18px 50px rgba(0,0,0,.55) !important;
+  }
+  .round-card img{
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+  .round-visuals::after{
+    background:
+      linear-gradient(0deg,#07080a 0%,rgba(7,8,10,.96) 27%,rgba(7,8,10,.25) 60%,rgba(7,8,10,.28) 100%) !important;
+  }
+
+  /* 05: one dominant full-width image + a small secondary insert.
+     This removes the huge black letterbox shown in the screenshot. */
+  .between-sequence{
+    min-height:108svh !important;
+    padding:0 20px 13vh !important;
+    align-items:flex-end !important;
+  }
+  .between-gallery{
+    inset:0 !important;
+    height:100% !important;
+  }
+  .between-shot-a{
+    width:100vw !important;
+    height:55vh !important;
+    left:0 !important;
+    right:auto !important;
+    top:0 !important;
+    transform:none !important;
+    opacity:.82;
+    box-shadow:none !important;
+  }
+  .between-shot-a img{
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+  .between-shot-b{
+    width:48vw !important;
+    height:27vh !important;
+    left:auto !important;
+    right:5vw !important;
+    top:31vh !important;
+    bottom:auto !important;
+    transform:none !important;
+    opacity:.66;
+    box-shadow:0 18px 48px rgba(0,0,0,.58) !important;
+  }
+  .between-shot-b img{
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+  .between-gallery::after{
+    inset:0 !important;
+    background:
+      linear-gradient(0deg,#08090b 0%,rgba(8,9,11,.98) 35%,rgba(8,9,11,.58) 53%,rgba(8,9,11,.12) 78%,rgba(8,9,11,.20) 100%),
+      linear-gradient(90deg,rgba(8,9,11,.18),transparent 70%) !important;
+  }
+  .between-copy{
+    z-index:5 !important;
+    width:100% !important;
+  }
+  .between-copy h2{
+    font-size:clamp(38px,10.8vw,54px) !important;
+    line-height:1.14 !important;
+  }
+
+  /* remove the old contained-image black backing effect */
+  .hero-visual,.hero-bg,.hero-image,
+  .invite-image,.wish-image,.wish-visual,.deathmatch-bg,
+  .round-card,.between-shot{
+    background:transparent !important;
+  }
+}
+
 </style>
 </head>
 <body class="lock">
