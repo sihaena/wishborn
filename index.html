@@ -2115,6 +2115,9 @@ body.modal-open{overflow:hidden}
     <div class="divider"></div>
   </div>
 </main>
+<audio id="wishbornBgm" preload="auto" loop><source src="assets/song.mp3" type="audio/mpeg"></audio>
+<button class="bgm-control is-paused" id="bgmControl" type="button" aria-label="배경음악 켜기" title="BGM OFF"><span class="bgm-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-label">BGM</span></button>
+
 <script>
 const intro=document.getElementById('intro');
 const enter=document.getElementById('enter');
@@ -2398,8 +2401,7 @@ if(bgmControl)bgmControl.addEventListener('click',async()=>{if(wishbornBgm.pause
 
 </script>
 
-<audio id="wishbornBgm" preload="auto" loop><source src="assets/song.mp3" type="audio/mpeg"></audio>
-<button class="bgm-control is-paused" id="bgmControl" type="button" aria-label="배경음악 켜기" title="BGM OFF"><span class="bgm-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-label">BGM</span></button>
+
 
 </body>
 </html>
