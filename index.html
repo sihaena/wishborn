@@ -1773,7 +1773,7 @@ body.modal-open{overflow:hidden}
 
 
 /* BGM */
-.bgm-control{position:fixed;z-index:950;top:clamp(18px,3vh,30px);right:clamp(18px,2.5vw,34px);height:34px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(7,8,10,.46);backdrop-filter:blur(9px);color:rgba(232,232,234,.62);opacity:0;pointer-events:none;transform:translateY(-5px);transition:.35s;cursor:pointer}.bgm-control.is-visible{opacity:1;pointer-events:auto;transform:none}.bgm-label{font-size:7px;letter-spacing:.18em}.bgm-bars{height:11px;width:13px;display:flex;align-items:flex-end;justify-content:center;gap:2px}.bgm-bars i{display:block;width:2px;height:4px;background:rgba(194,74,93,.78);transform-origin:bottom;animation:bgmWave .72s ease-in-out infinite alternate}.bgm-bars i:nth-child(2){height:9px;animation-delay:-.34s}.bgm-bars i:nth-child(3){height:6px;animation-delay:-.16s}.bgm-control.is-paused .bgm-bars i{animation:none;height:2px;background:rgba(185,187,192,.34)}@keyframes bgmWave{from{transform:scaleY(.35)}to{transform:scaleY(1)}}@media(max-width:720px){.bgm-control{top:16px;right:14px;height:31px;padding:0 9px;background:rgba(7,8,10,.55)}}
+.bgm-control{position:fixed;z-index:1200;top:clamp(18px,3vh,30px);right:clamp(18px,2.5vw,34px);height:34px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(7,8,10,.46);backdrop-filter:blur(9px);color:rgba(232,232,234,.62);opacity:1;pointer-events:auto;transform:none;transition:.35s;cursor:pointer}.bgm-control.is-visible{opacity:1;pointer-events:auto;transform:none}.bgm-label{font-size:7px;letter-spacing:.18em}.bgm-bars{height:11px;width:13px;display:flex;align-items:flex-end;justify-content:center;gap:2px}.bgm-bars i{display:block;width:2px;height:4px;background:rgba(194,74,93,.78);transform-origin:bottom;animation:bgmWave .72s ease-in-out infinite alternate}.bgm-bars i:nth-child(2){height:9px;animation-delay:-.34s}.bgm-bars i:nth-child(3){height:6px;animation-delay:-.16s}.bgm-control.is-paused .bgm-bars i{animation:none;height:2px;background:rgba(185,187,192,.34)}@keyframes bgmWave{from{transform:scaleY(.35)}to{transform:scaleY(1)}}@media(max-width:720px){.bgm-control{top:auto;bottom:22px;right:16px;height:34px;padding:0 11px;background:rgba(7,8,10,.76);border-color:rgba(255,255,255,.16);box-shadow:0 5px 24px rgba(0,0,0,.38)}}
 
 </style>
 </head>
@@ -2394,12 +2394,12 @@ function fadeBgmIn(){clearInterval(bgmFadeTimer);wishbornBgm.volume=0;let n=0;bg
 async function startWishbornBgm(){if(!wishbornBgm||bgmStarted)return;bgmStarted=true;try{wishbornBgm.currentTime=0;await wishbornBgm.play();fadeBgmIn();setBgmUI(true)}catch(e){bgmStarted=false;setBgmUI(false)}if(bgmControl)bgmControl.classList.add('is-visible')}
 const ticketAudioTrigger=document.querySelector('#ticketButton')||document.querySelector('.ticket-button')||document.querySelector('.ticket-wrap')||document.querySelector('.intro-ticket')||document.querySelector('[data-ticket]');
 if(ticketAudioTrigger)ticketAudioTrigger.addEventListener('click',startWishbornBgm,{capture:true,once:true});else document.addEventListener('click',startWishbornBgm,{capture:true,once:true});
-if(bgmControl)bgmControl.addEventListener('click',async()=>{if(wishbornBgm.paused){try{await wishbornBgm.play();setBgmUI(true)}catch(e){}}else{wishbornBgm.pause();setBgmUI(false)}});
+if(bgmControl)bgmControl.addEventListener('click',async()=>{if(wishbornBgm.paused){try{if(!bgmStarted){bgmStarted=true;wishbornBgm.currentTime=0;wishbornBgm.volume=.38;}await wishbornBgm.play();setBgmUI(true)}catch(e){bgmStarted=false;setBgmUI(false)}}else{wishbornBgm.pause();setBgmUI(false)}});
 
 </script>
 
 <audio id="wishbornBgm" preload="auto" loop><source src="assets/song.mp3" type="audio/mpeg"></audio>
-<button class="bgm-control" id="bgmControl" type="button" aria-label="배경음악 끄기" title="BGM ON"><span class="bgm-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-label">BGM</span></button>
+<button class="bgm-control is-paused" id="bgmControl" type="button" aria-label="배경음악 켜기" title="BGM OFF"><span class="bgm-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="bgm-label">BGM</span></button>
 
 </body>
 </html>
