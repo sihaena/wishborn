@@ -51,120 +51,106 @@
 @media(max-width:560px){.section{padding:90px 22px}.participants{padding:100px 22px}.cards{gap:8px}.unknown:before{font-size:5px;top:8px;left:8px}.ticket-button{width:92vw;height:auto}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;filter:none;transition:none!important}.ticket-button,.intro,.site{transition:none!important}}
 
-/* opening hero — quiet after the ticket tear */
-.hero-opening{
+/* HERO — logo asset + phone key visual */
+.hero-pv{
   min-height:100svh;
   position:relative;
-  display:grid;
-  place-items:center;
   overflow:hidden;
-  isolation:isolate;
-  padding:clamp(90px,12vh,150px) 24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:#07080a;
+  isolation:isolate;
 }
-.hero-opening-bg{
+.hero-phone{
   position:absolute;
-  inset:-3%;
+  inset:0;
   z-index:-3;
-  opacity:.26;
-  transform:scale(1.035);
 }
-.hero-opening-bg img{
+.hero-phone img{
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:center;
-  filter:grayscale(.42) brightness(.52) contrast(1.12);
+  transform:scale(1.015);
+  filter:brightness(.72) contrast(1.08) saturate(.82);
 }
-.hero-opening-vignette{
+.hero-shade{
   position:absolute;
   inset:0;
   z-index:-2;
   background:
-    radial-gradient(circle at 50% 48%,rgba(7,8,10,.12) 0 17%,rgba(7,8,10,.62) 58%,#07080a 93%),
-    linear-gradient(to bottom,#07080a 0%,rgba(7,8,10,.22) 22%,rgba(7,8,10,.32) 70%,#07080a 100%);
+    radial-gradient(ellipse at 50% 48%,rgba(7,8,10,.10) 0%,rgba(7,8,10,.18) 35%,rgba(7,8,10,.72) 88%),
+    linear-gradient(to bottom,rgba(7,8,10,.60) 0%,rgba(7,8,10,.12) 35%,rgba(7,8,10,.24) 68%,#07080a 100%);
 }
-.hero-opening-copy{
-  width:min(900px,92vw);
+.hero-pv-copy{
+  width:min(920px,88vw);
   text-align:center;
-  transform:translateY(-1.5vh);
+  padding:0 16px;
+  transform:translateY(-2vh);
 }
-.hero-eyebrow{
-  margin-bottom:18px;
-  font-size:10px;
-  letter-spacing:.52em;
-  color:rgba(214,216,221,.48);
+.hero-wishborn-logo{
+  display:block;
+  width:min(760px,82vw);
+  max-height:32vh;
+  object-fit:contain;
+  margin:0 auto;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,.75));
 }
-.hero-logo{
-  margin:0;
-  font-size:clamp(52px,10vw,126px);
-  line-height:.86;
-  letter-spacing:.065em;
-  font-weight:500;
-  color:#e5e5e7;
-  text-shadow:0 0 42px rgba(194,74,93,.12);
-}
-.hero-tagline{
-  margin:30px 0 0;
-  font-size:clamp(14px,1.6vw,20px);
-  letter-spacing:.12em;
-  color:rgba(231,231,233,.78);
+.hero-pv-tagline{
+  margin:clamp(22px,3.2vh,34px) 0 0;
+  font-size:clamp(14px,1.5vw,20px);
   font-weight:300;
+  letter-spacing:.13em;
+  color:rgba(239,239,241,.84);
+  text-shadow:0 2px 18px rgba(0,0,0,.8);
 }
-.hero-rule{
-  width:38px;
-  height:1px;
-  margin:26px auto 19px;
-  background:rgba(194,74,93,.66);
-}
-.hero-subcopy{
-  margin:0;
+.hero-pv-meta{
+  margin:18px 0 0;
   font-size:9px;
-  letter-spacing:.28em;
-  color:rgba(170,172,177,.52);
+  letter-spacing:.30em;
+  color:rgba(202,203,207,.50);
 }
 .hero-scroll{
   position:absolute;
   left:50%;
-  bottom:26px;
+  bottom:22px;
   transform:translateX(-50%);
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:10px;
-  color:rgba(174,176,181,.42);
+  gap:9px;
   font-size:8px;
   letter-spacing:.34em;
+  color:rgba(210,211,214,.40);
 }
 .hero-scroll i{
+  position:relative;
   display:block;
   width:1px;
-  height:34px;
+  height:32px;
   overflow:hidden;
-  position:relative;
   background:rgba(255,255,255,.10);
 }
 .hero-scroll i::after{
   content:"";
   position:absolute;
-  left:0;top:-60%;
-  width:1px;height:55%;
-  background:rgba(220,220,222,.62);
-  animation:scrollLine 1.9s ease-in-out infinite;
+  left:0;top:-55%;
+  width:1px;height:50%;
+  background:rgba(230,230,232,.65);
+  animation:heroScroll 1.8s ease-in-out infinite;
 }
-@keyframes scrollLine{
+@keyframes heroScroll{
   0%{transform:translateY(0);opacity:0}
   20%{opacity:1}
-  75%{opacity:1}
-  100%{transform:translateY(290%);opacity:0}
+  80%{opacity:1}
+  100%{transform:translateY(310%);opacity:0}
 }
-@media (max-width:640px){
-  .hero-opening{padding-left:18px;padding-right:18px}
-  .hero-opening-bg{inset:-7%;opacity:.23}
-  .hero-logo{font-size:clamp(48px,16vw,78px);letter-spacing:.035em}
-  .hero-tagline{margin-top:24px;font-size:13px;letter-spacing:.08em}
-  .hero-subcopy{font-size:8px;letter-spacing:.20em}
-  .hero-scroll{bottom:20px}
+@media(max-width:640px){
+  .hero-phone img{object-position:center center;transform:scale(1.03)}
+  .hero-wishborn-logo{width:min(88vw,620px);max-height:25vh}
+  .hero-pv-tagline{font-size:13px;letter-spacing:.08em}
+  .hero-pv-meta{font-size:8px;letter-spacing:.20em}
 }
 
 </style>
@@ -188,23 +174,20 @@
 </section>
 <main class="site" id="site">
   <div class="wrap">
-    <section class="hero hero-opening" id="top">
-  <div class="hero-opening-bg" aria-hidden="true">
+    <section class="hero hero-pv" id="top">
+  <div class="hero-phone" aria-hidden="true">
     <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/hero_phone.png" alt="">
   </div>
-  <div class="hero-opening-vignette" aria-hidden="true"></div>
+  <div class="hero-shade" aria-hidden="true"></div>
 
-  <div class="hero-opening-copy reveal">
-    <div class="hero-eyebrow">WISHBORN</div>
-    <h1 class="hero-logo" aria-label="WISHBORN">WISHBORN</h1>
-    <p class="hero-tagline">살아남을수록, 소원은 선명해진다.</p>
-    <div class="hero-rule"></div>
-    <p class="hero-subcopy">49 PLAYERS&nbsp;&nbsp;·&nbsp;&nbsp;A SINGLE WISH</p>
+  <div class="hero-pv-copy reveal">
+    <img class="hero-wishborn-logo" src="assets/logo.png" alt="WISHBORN">
+    <p class="hero-pv-tagline">살아남을수록, 소원은 선명해진다.</p>
+    <p class="hero-pv-meta">49 PLAYERS&nbsp;&nbsp;·&nbsp;&nbsp;ONE WISH</p>
   </div>
 
   <div class="hero-scroll" aria-hidden="true">
-    <span>SCROLL</span>
-    <i></i>
+    <span>SCROLL</span><i></i>
   </div>
 </section>
     <div class="divider"></div>
@@ -395,7 +378,11 @@ enter.addEventListener('click',()=>{
   // Main page begins appearing while the short downward fall is fading.
   setTimeout(()=>{
     site.classList.add('visible');
-    document.querySelector('.hero-opening-bg')?.animate([{opacity:0},{opacity:.26}],{duration:1100,easing:'ease-out',fill:'forwards'});
+    const heroPhone=document.querySelector('.hero-phone img');
+    if(heroPhone) heroPhone.animate(
+      [{opacity:.18,transform:'scale(1.045)'},{opacity:1,transform:'scale(1.015)'}],
+      {duration:1050,easing:'cubic-bezier(.2,.7,.25,1)',fill:'forwards'}
+    );
     document.body.classList.remove('lock');
     setTimeout(()=>document.querySelector('.hero .reveal').classList.add('on'),100);
   },700);
