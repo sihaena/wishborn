@@ -19,7 +19,7 @@
 .ticket-source{display:block;width:100%;height:auto;pointer-events:none}
 .tear-progress{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:3}
 .tear-layer{position:absolute;inset:0;pointer-events:none;z-index:2}
-.tear-piece{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
+.tear-piece{position:absolute;inset:0;width:100%;height:100%;opacity:0;backface-visibility:hidden;will-change:transform,opacity;transform:translate3d(0,0,0)}
 .rip-flash{display:none}
 .intro-hint{margin-top:24px;color:#777980;font-size:10px;letter-spacing:.22em}
 .ticket-button.opening{pointer-events:none;filter:none}
@@ -29,14 +29,12 @@
 .ticket-button.detached .tear-left{animation:tearLeft .52s cubic-bezier(.22,.72,.28,1) both}
 .ticket-button.detached .tear-right{animation:tearRight .52s cubic-bezier(.22,.72,.28,1) both}
 
-@keyframes tearLeft{
-  0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}
+@keyframes tearLeft{0%{transform:translate3d(0,0,0) rotate(0);opacity:1}45%{transform:translate3d(-.8vw,4vh,0) rotate(-2deg);opacity:.34}100%{transform:translate3d(-1.5vw,8vh,0) rotate(-4deg);opacity:0}}
   22%{transform:translate3d(-.7vw,2.8vh,0) rotate(-1.5deg);opacity:.72}
   55%{transform:translate3d(-1.8vw,7vh,0) rotate(-3.5deg);opacity:.20}
   100%{transform:translate3d(-2.8vw,11vh,0) rotate(-5deg);opacity:0}
 }
-@keyframes tearRight{
-  0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}
+@keyframes tearRight{0%{transform:translate3d(0,0,0) rotate(0);opacity:1}45%{transform:translate3d(.8vw,4vh,0) rotate(2deg);opacity:.34}100%{transform:translate3d(1.5vw,8vh,0) rotate(4deg);opacity:0}}
   22%{transform:translate3d(.7vw,2.8vh,0) rotate(1.5deg);opacity:.72}
   55%{transform:translate3d(1.8vw,7vh,0) rotate(3.5deg);opacity:.20}
   100%{transform:translate3d(2.8vw,11vh,0) rotate(5deg);opacity:0}
@@ -63,8 +61,8 @@
       <img class="ticket-source" id="ticketSource" src="assets/ticket.png" alt="">
       <canvas id="tearProgress" class="tear-progress" aria-hidden="true"></canvas>
       <span class="tear-layer" aria-hidden="true">
-        <img class="tear-piece tear-left" id="tearLeft" alt="">
-        <img class="tear-piece tear-right" id="tearRight" alt="">
+        <canvas class="tear-piece tear-left" id="tearLeft" aria-hidden="true"></canvas>
+        <canvas class="tear-piece tear-right" id="tearRight" aria-hidden="true"></canvas>
         <span class="rip-flash"></span>
       </span>
     </button>
@@ -104,51 +102,44 @@ function buildTearBitmaps(){
   if(tearReady || !ticketSource.naturalWidth || !ticketSource.naturalHeight) return;
 
   const sw=ticketSource.naturalWidth, sh=ticketSource.naturalHeight;
-  const maxW=1400;
-  const scale=Math.min(1,maxW/sw);
+  const scale=Math.min(1,1400/sw);
   const w=Math.max(2,Math.round(sw*scale));
   const h=Math.max(2,Math.round(sh*scale));
 
-  const source=document.createElement('canvas');
-  source.width=w; source.height=h;
-  const sctx=source.getContext('2d',{alpha:true});
-  sctx.drawImage(ticketSource,0,0,w,h);
-
-  // One irregular vertical tear path. Each half is rasterized once;
-  // the animation itself only moves two ordinary bitmap images.
   const pts=[
-    [0.505,0],[0.488,.08],[0.514,.17],[0.486,.27],[0.511,.37],
-    [0.489,.47],[0.516,.58],[0.487,.69],[0.512,.80],[0.491,.91],[0.503,1]
+    [.505,0],[.488,.08],[.514,.17],[.486,.27],[.511,.37],
+    [.489,.47],[.516,.58],[.487,.69],[.512,.80],[.491,.91],[.503,1]
   ].map(([x,y])=>[x*w,y*h]);
 
-  function makePiece(side){
-    const c=document.createElement('canvas');
-    c.width=w;c.height=h;
-    const ctx=c.getContext('2d',{alpha:true});
+  function drawHalf(canvas,side){
+    canvas.width=w;
+    canvas.height=h;
+    const ctx=canvas.getContext('2d',{alpha:true});
+    ctx.clearRect(0,0,w,h);
     ctx.save();
     ctx.beginPath();
+
     if(side==='left'){
       ctx.moveTo(0,0);
-      ctx.lineTo(pts[0][0],pts[0][1]);
-      for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);
+      ctx.lineTo(pts[0][0],0);
+      for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
       ctx.lineTo(0,h);
-      ctx.closePath();
     }else{
-      ctx.moveTo(pts[0][0],pts[0][1]);
+      ctx.moveTo(pts[0][0],0);
       ctx.lineTo(w,0);
       ctx.lineTo(w,h);
-      ctx.lineTo(pts[pts.length-1][0],pts[pts.length-1][1]);
-      for(let i=pts.length-2;i>=0;i--)ctx.lineTo(pts[i][0],pts[i][1]);
-      ctx.closePath();
+      ctx.lineTo(pts[pts.length-1][0],h);
+      for(let i=pts.length-2;i>=0;i--) ctx.lineTo(pts[i][0],pts[i][1]);
     }
+
+    ctx.closePath();
     ctx.clip();
-    ctx.drawImage(source,0,0);
+    ctx.drawImage(ticketSource,0,0,w,h);
     ctx.restore();
-    return c.toDataURL('image/png');
   }
 
-  tearLeft.src=makePiece('left');
-  tearRight.src=makePiece('right');
+  drawHalf(tearLeft,'left');
+  drawHalf(tearRight,'right');
   tearReady=true;
 }
 
