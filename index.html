@@ -1225,6 +1225,74 @@ body.modal-open{overflow:hidden}
   .play-link strong{font-size:18px}
 }
 
+
+/* 07 PLAY — platform character lists */
+.platform-tabs{
+  display:flex;
+  gap:0;
+  width:min(880px,100%);
+  margin-top:clamp(50px,7vh,78px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.platform-tab{
+  appearance:none;
+  border:0;
+  border-bottom:1px solid transparent;
+  margin-bottom:-1px;
+  padding:15px clamp(18px,3vw,38px) 15px 0;
+  background:transparent;
+  color:rgba(185,187,192,.35);
+  font-size:10px;
+  letter-spacing:.17em;
+  cursor:pointer;
+  transition:color .25s ease,border-color .25s ease;
+}
+.platform-tab small{
+  margin-left:7px;
+  color:rgba(194,74,93,.50);
+  font-size:7px;
+}
+.platform-tab.is-active{
+  color:rgba(238,238,240,.90);
+  border-bottom-color:rgba(194,74,93,.72);
+}
+.platform-panels{
+  width:min(880px,100%);
+}
+.platform-panel{display:none}
+.platform-panel.is-active{display:block}
+.platform-character{
+  min-height:61px;
+  display:grid;
+  grid-template-columns:52px 1fr auto;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.075);
+}
+.platform-character>span{
+  color:rgba(194,74,93,.55);
+  font-size:7px;
+  letter-spacing:.12em;
+}
+.platform-character strong{
+  color:rgba(221,222,225,.78);
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:.03em;
+}
+.platform-character em{
+  color:rgba(178,180,185,.22);
+  font-size:6px;
+  font-style:normal;
+  letter-spacing:.16em;
+}
+@media(max-width:600px){
+  .platform-tabs{overflow-x:auto;margin-top:42px}
+  .platform-tab{flex:0 0 auto;padding-right:23px;font-size:8px}
+  .platform-character{min-height:55px;grid-template-columns:36px 1fr auto}
+  .platform-character strong{font-size:13px}
+  .platform-character em{font-size:5px}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -1512,37 +1580,90 @@ body.modal-open{overflow:hidden}
     </div>
   </article>
 </div>
+
 <section class="play-sequence section" id="play">
   <div class="play-inner">
     <div class="play-copy reveal">
       <span class="section-no">07 / PLAY</span>
-      <p class="play-kicker">THE INVITATION IS STILL OPEN.</p>
-      <h2>당신의 소원은<br>무엇입니까?</h2>
-      <p class="play-body">WISHBORN의 참가자들을 만나보세요.</p>
+      <p class="play-kicker">CHOOSE YOUR PLATFORM.</p>
+      <h2>참가자를<br>만나보세요.</h2>
+      <p class="play-body">플랫폼마다 공개된 참가자가 다릅니다.</p>
     </div>
 
-    <div class="play-links">
-      <button class="play-link reveal" type="button" data-platform="TINGLE">
-        <span class="play-index">01</span>
-        <strong>TINGLE</strong>
-        <span class="play-arrow">↗</span>
-      </button>
-      <button class="play-link reveal" type="button" data-platform="CAVEDUCK">
-        <span class="play-index">02</span>
-        <strong>CAVEDUCK</strong>
-        <span class="play-arrow">↗</span>
-      </button>
-      <button class="play-link reveal" type="button" data-platform="INKCHAT">
-        <span class="play-index">03</span>
-        <strong>INKCHAT</strong>
-        <span class="play-arrow">↗</span>
-      </button>
+    <div class="platform-tabs reveal" role="tablist" aria-label="플랫폼 선택">
+      <button class="platform-tab is-active" type="button" data-target="tingle">TINGLE <small>09</small></button>
+      <button class="platform-tab" type="button" data-target="caveduck">CAVEDUCK <small>05</small></button>
+      <button class="platform-tab" type="button" data-target="inkchat">INKCHAT <small>04</small></button>
     </div>
 
-    <p class="play-note reveal">플랫폼 링크는 공개 주소 연결 전까지 비활성화됩니다.</p>
+    <div class="platform-panels reveal">
+      <div class="platform-panel is-active" data-panel="tingle">
+        <div class="platform-character">
+          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>02</span><strong>백이산</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>03</span><strong>한유온</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>04</span><strong>이도현</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>05</span><strong>윤이겸</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>06</span><strong>반고요</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>07</span><strong>주재현</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>08</span><strong>신재희</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>09</span><strong>백연하</strong><em>LINK PENDING</em>
+        </div>
+      </div>
+      <div class="platform-panel" data-panel="caveduck">
+        <div class="platform-character">
+          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>02</span><strong>백이산</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>03</span><strong>한유온</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>04</span><strong>이도현</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>05</span><strong>신재희</strong><em>LINK PENDING</em>
+        </div>
+      </div>
+      <div class="platform-panel" data-panel="inkchat">
+        <div class="platform-character">
+          <span>01</span><strong>문유진</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>02</span><strong>한유온</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>03</span><strong>이도현</strong><em>LINK PENDING</em>
+        </div>
+        <div class="platform-character">
+          <span>04</span><strong>백연하</strong><em>LINK PENDING</em>
+        </div>
+      </div>
+    </div>
+
+    <p class="play-note reveal">캐릭터 공개 주소 연결 전까지 링크는 비활성화됩니다.</p>
   </div>
   <div class="play-glow" aria-hidden="true"></div>
 </section>
+
 
 
 
@@ -1803,6 +1924,18 @@ if(participantModal){
   participantModal.querySelector('.participant-close').addEventListener('click',closeParticipant);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeParticipant();});
 }
+
+
+// PLAY platform tabs
+document.querySelectorAll('.platform-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.platform-tab').forEach(t=>t.classList.remove('is-active'));
+    document.querySelectorAll('.platform-panel').forEach(p=>p.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    const panel=document.querySelector(`.platform-panel[data-panel="${tab.dataset.target}"]`);
+    if(panel) panel.classList.add('is-active');
+  });
+});
 
 </script>
 </body>
