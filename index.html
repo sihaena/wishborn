@@ -153,6 +153,137 @@
   .hero-pv-meta{font-size:8px;letter-spacing:.20em}
 }
 
+
+/* 01 — INVITATION */
+.invite-sequence{
+  position:relative;
+  min-height:118svh;
+  padding:0;
+  background:#07080a;
+  overflow:hidden;
+}
+.invite-sticky{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:clamp(80px,10vh,120px) clamp(24px,7vw,110px);
+}
+.invite-image{
+  position:absolute;
+  inset:6vh 0 0 36%;
+  overflow:hidden;
+  opacity:.82;
+}
+.invite-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(.64) contrast(1.10) saturate(.78);
+}
+.invite-image-shade{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,#07080a 0%,rgba(7,8,10,.90) 10%,rgba(7,8,10,.26) 50%,rgba(7,8,10,.38) 100%),
+    linear-gradient(0deg,#07080a 0%,transparent 22%,transparent 78%,#07080a 100%);
+}
+.invite-copy{
+  position:relative;
+  z-index:2;
+  width:min(560px,48vw);
+  margin-top:-2vh;
+}
+.section-no{
+  display:block;
+  margin-bottom:32px;
+  font-size:9px;
+  letter-spacing:.36em;
+  color:rgba(194,74,93,.78);
+}
+.invite-lead{
+  margin:0 0 25px;
+  color:rgba(194,196,201,.60);
+  font-size:clamp(11px,1vw,14px);
+  letter-spacing:.08em;
+}
+.invite-main{
+  margin:0;
+  color:#e5e5e7;
+  font-size:clamp(31px,4.2vw,64px);
+  line-height:1.28;
+  letter-spacing:-.025em;
+  font-weight:300;
+}
+.invite-main strong{
+  color:#d9dadd;
+  font-size:1.28em;
+  font-weight:500;
+  letter-spacing:.02em;
+}
+.invite-small{
+  margin:26px 0 0;
+  color:rgba(188,190,195,.56);
+  font-size:clamp(12px,1.1vw,15px);
+  line-height:1.9;
+  letter-spacing:.04em;
+}
+.invite-count{
+  position:absolute;
+  right:clamp(22px,4vw,60px);
+  bottom:clamp(28px,5vh,54px);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:rgba(190,192,197,.32);
+  font-size:9px;
+  letter-spacing:.18em;
+}
+.invite-count i{
+  display:block;
+  width:48px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(194,74,93,.18),rgba(194,74,93,.72));
+}
+.invite-count b{
+  font-size:14px;
+  font-weight:400;
+  color:rgba(224,224,227,.68);
+}
+.mobile-only{display:none}
+
+@media(max-width:720px){
+  .invite-sequence{min-height:108svh}
+  .invite-sticky{
+    min-height:100svh;
+    align-items:flex-end;
+    padding:72px 20px 13vh;
+  }
+  .invite-image{
+    inset:0;
+    opacity:.72;
+  }
+  .invite-image img{
+    object-position:60% center;
+  }
+  .invite-image-shade{
+    background:
+      linear-gradient(0deg,#07080a 0%,rgba(7,8,10,.90) 23%,rgba(7,8,10,.24) 62%,rgba(7,8,10,.60) 100%),
+      linear-gradient(90deg,rgba(7,8,10,.30),rgba(7,8,10,.05));
+  }
+  .invite-copy{
+    width:100%;
+    margin:0;
+  }
+  .section-no{margin-bottom:20px}
+  .invite-lead{margin-bottom:16px}
+  .invite-main{font-size:clamp(30px,10vw,48px)}
+  .invite-small{margin-top:18px}
+  .invite-count{right:20px;bottom:28px}
+  .mobile-only{display:block}
+}
+
 </style>
 </head>
 <body class="lock">
@@ -190,6 +321,26 @@
     <span>SCROLL</span><i></i>
   </div>
 </section>
+<section class="invite-sequence section" id="invitation">
+  <div class="invite-sticky">
+    <div class="invite-image reveal">
+      <img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="">
+      <div class="invite-image-shade" aria-hidden="true"></div>
+    </div>
+
+    <div class="invite-copy reveal">
+      <span class="section-no">01 / INVITATION</span>
+      <p class="invite-lead">어느 날, 정체불명의 초대장이 도착했다.</p>
+      <p class="invite-main">버튼을 누른 사람은<br><strong>49명.</strong></p>
+      <p class="invite-small">그게 실수였든,<br class="mobile-only"> 소원이 있었든.</p>
+    </div>
+
+    <div class="invite-count reveal" aria-hidden="true">
+      <span>0</span><i></i><b>49</b>
+    </div>
+  </div>
+</section>
+
     <div class="divider"></div>
     <section class="section center"><div class="section-inner"><div class="reveal number glow">49</div><h2 class="reveal headline" style="margin-top:36px">버튼을 누른 사람은 49명.</h2><p class="reveal body">그게 실수였든,<br>소원이 있었든.</p><div class="reveal visual"><img src="https://assets.sihaena-ai.workers.dev/cc/wishborn/after_click.png" alt="WISHBORN 참가자들"></div></div></section>
     <div class="divider"></div>
